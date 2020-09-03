@@ -48,11 +48,11 @@ public class HomePage extends Base {
 	public static WebElement sgboxclose;
 	@FindBy(xpath = "//input[@id='term_pop']")
 	public static WebElement termsCheckbox;
-	@FindBy(xpath = "//a[contains(@href,'40plusmart.com/checkout')]")
+	@FindBy(xpath = "//a[contains(@href,'/checkout')]")
 	public static WebElement proceedToCheckoutButton;
 	@FindBys({ @FindBy(xpath = "//img[contains(@src,'https://www.40plusmart.com/wp-content/uploads/')]") })
 	public List<WebElement> supplementsLink;
-	@FindBy(xpath = "//img[contains(@src,'https://www.40plusmart.com/wp-content/uploads/')]")
+	@FindBy(xpath = "//img[contains(@src,'/wp-content/uploads/')]")
 	public static WebElement supplements_5HTPLink;
 	@FindBys({ @FindBy(xpath = "//h2[text()='Added to cart successfully!']") })
 	public List<WebElement> addedToCartConfirmationMessageText;
@@ -84,7 +84,7 @@ public class HomePage extends Base {
 	public static WebElement txtbxpostalcode;
 	@FindBy(xpath = "//*[@name='calc_shipping']")
 	public static WebElement btnshippingupdate;
-	@FindBy(xpath = "(//a[contains(@href,'https://www.40plusmart.com/checkout/') and contains(text(),'roceed to checkout')])")
+	@FindBy(xpath = "(//a[contains(@href,'/checkout/') and contains(text(),'roceed to checkout')])")
 	public static WebElement btnproceedtocheckout;
 	@FindBy(xpath = "//*[@class='shipping-calculator-button' and contains(text(),'Calculate shipping')]")
 	public static WebElement labelCalculateshipping;
@@ -234,6 +234,9 @@ public class HomePage extends Base {
 		oCommonFunctions.clickElement(btnproceedtocheckout, 5);
 	}
 
+	
+	
+	/* Verify the URL*/
 	public static void verifyLink(String urlLink) {
 
 		try {
