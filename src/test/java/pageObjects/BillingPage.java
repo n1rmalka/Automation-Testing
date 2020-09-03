@@ -55,7 +55,10 @@ public class BillingPage {
 	private static WebElement Billphonenumber;
 	@FindBy(xpath = "//input[contains(@id,'billing_email')]")
 	private static WebElement Billemail;
+
 	/*--------------------Shipping Locators----------------------*/
+	@FindBy(xpath = "//input[contains(@id,'ship-to-different-address-checkbox')]")
+	private static WebElement ShippingCheckbox;
 	@FindBy(xpath = "//input[contains(@id,'shipping_first_name')]")
 	private static WebElement Shippingfirstname;
 	@FindBy(xpath = "//input[contains(@id,'shipping_last_name')]")
@@ -78,12 +81,13 @@ public class BillingPage {
 	private static WebElement Shippingphonenumber;
 	@FindBy(xpath = "//input[contains(@id,'shipping_email')]")
 	private static WebElement Shippingemail;
-	
+
 	@FindBy(xpath = "//input[contains(@id,'terms')]")
 	private static WebElement terms_ConditionCheckbox;
 	@FindBy(xpath = "//button[contains(text(),'Place order')]")
 	private static WebElement Placeorder;
 
+	/*--------------------Billing Address Method----------------------*/
 	public void enterBillfirstname(String firstname) {
 		oCommonFunctions.sendKey(Billfirstname, firstname, 10);
 
@@ -109,10 +113,10 @@ public class BillingPage {
 		oCommonFunctions.drp_select(drpBillCountry, Country, 5);
 	}
 
-//	public void enterBillState(String State) {
-//		oCommonFunctions.sleepWait(2);
-//		oCommonFunctions.sendKey(txtbxBillState, State, 5);
-//	}
+	// public void enterBillState(String State) {
+	// oCommonFunctions.sleepWait(2);
+	// oCommonFunctions.sendKey(txtbxBillState, State, 5);
+	// }
 
 	public void drpBillState(String State) {
 		oCommonFunctions.sleepWait(2);
@@ -136,6 +140,68 @@ public class BillingPage {
 
 	public void enterBillemail(String email) {
 		oCommonFunctions.sendKey(Billemail, email, 10);
+
+	}
+
+	/*-----------------------Shipping Address Method---------------------*/
+
+	public void clickShippingCheckbox() {
+		oCommonFunctions.waitForElementvisible(ShippingCheckbox, 10);
+		oCommonFunctions.clickElement(ShippingCheckbox, 5);
+	}
+
+	public void enterShippingfirstname(String firstname) {
+		oCommonFunctions.sendKey(Shippingfirstname, firstname, 10);
+
+	}
+
+	public void enterShippinglastname(String lastname) {
+		oCommonFunctions.sendKey(Shippinglastname, lastname, 10);
+
+	}
+
+	public void enterShippingaddr_1(String address1) {
+		oCommonFunctions.sendKey(Shippingaddr1, address1, 10);
+
+	}
+
+	public void enterShippingaddr_2(String address2) {
+		oCommonFunctions.sendKey(Shippingaddr2, address2, 10);
+
+	}
+
+	public void selectShippingCountry(String Country) {
+		oCommonFunctions.sleepWait(2);
+		oCommonFunctions.drp_select(drpShippingCountry, Country, 5);
+	}
+
+	// public void enterShippingState(String State) {
+	// oCommonFunctions.sleepWait(2);
+	// oCommonFunctions.sendKey(txtbxShippingState, State, 5);
+	// }
+
+	public void drpShippingState(String State) {
+		oCommonFunctions.sleepWait(2);
+		oCommonFunctions.drp_select(txtbxShippingState, State, 5);
+	}
+
+	public void enterShippingcity(String city) {
+		oCommonFunctions.sendKey(Shippingcity, city, 10);
+
+	}
+
+	public void enterShippingpostalcode(String postalcode) {
+		oCommonFunctions.sendKey(Shippingpostalcode, postalcode, 10);
+
+	}
+
+	public void enterShippingphonenumber(String phonenumber) {
+		oCommonFunctions.sendKey(Shippingphonenumber, phonenumber, 10);
+
+	}
+
+	public void enterShippingemail(String email) {
+		oCommonFunctions.sendKey(Shippingemail, email, 10);
 
 	}
 

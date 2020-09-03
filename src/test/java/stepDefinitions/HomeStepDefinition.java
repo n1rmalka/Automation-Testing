@@ -130,11 +130,28 @@ public class HomeStepDefinition extends Base {
 
 	}
 
+	@And("^Click on Shipping diffrent address checkbox$")
+	public void click_on_shipping_diffrent_address_checkbox() {
+		billingPage.clickShippingCheckbox();
+	}
+
 	@And("^Fill the shipping details of the  user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
 	public void fill_the_shipping_details_of_the_user(String firstname, String lastname, String address1,
 			String address2, String country, String state, String city, String postalcode, String phonenumber,
 			String email) throws Throwable {
-
+		Thread.sleep(1000);
+		// billingPage = new BillingPage(driver);
+		billingPage.enterShippingfirstname(firstname);
+		billingPage.enterShippinglastname(lastname);
+		billingPage.enterShippingaddr_1(address1);
+		billingPage.enterShippingaddr_2(address2);
+		billingPage.selectShippingCountry(country);
+		billingPage.drpShippingState(state);
+		billingPage.enterShippingcity(city);
+		billingPage.enterShippingpostalcode(postalcode + secs);
+		billingPage.enterShippingphonenumber(phonenumber + secs);
+		billingPage.enterShippingemail(email + secs + secs + secs + "@mailinator.com");
+		Thread.sleep(5000);
 	}
 
 	@And("^User enter credit card details \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
@@ -157,6 +174,7 @@ public class HomeStepDefinition extends Base {
 		billingPage.clickTerms_ConditionCheckbox();
 	}
 
+	/* HomePage Functional test */
 	@And("^Click on Place order button$")
 	public void click_on_place_order_button() throws Throwable {
 		billingPage.clickPlaceorderbutton();
@@ -175,6 +193,61 @@ public class HomeStepDefinition extends Base {
 		totalamount = driver.findElement(By.xpath("//th[contains(text(),'Total')]//following::span[1]")).getText();
 		Assert.assertEquals(totalamount, totalamount);
 		System.out.println(totalamount);
+	}
+
+	@And("^Scroll down and click on see all deals$")
+	public void scroll_down_and_click_on_see_all_deals() {
+
+	}
+
+	@And("^Verify the deal page meesage$")
+	public void verify_the_deal_page_meesage() {
+
+	}
+
+	@And("^Click back button of browser$")
+	public void click_back_button_of_browser() {
+
+	}
+
+	@And("^Scroll down and  left and right arrow$")
+	public void scroll_down_and_left_and_right_arrow() {
+
+	}
+
+	@And("^Scroll up and hover on categories \"([^\"]*)\"$")
+	public void scroll_up_and_hover_on_categories_something(String category, String strArg1) {
+
+	}
+
+	@And("^Click on Sub Category \"([^\"]*)\"$")
+	public void click_on_sub_category_something(String subcategory, String strArg1) {
+
+	}
+
+	@And("^Click on Show more on narrow choice$")
+	public void click_on_show_more_on_narrow_choice() {
+
+	}
+
+	@And("^Click on Show less on narrow choice$")
+	public void click_on_show_less_on_narrow_choice() {
+
+	}
+
+	@And("^Verify the radio button is enable and click on radio button$")
+	public void verify_the_radio_button_is_enable_and_click_on_radio_button() {
+
+	}
+
+	@And("^Click on rating checkbox$")
+	public void click_on_rating_checkbox() {
+
+	}
+
+	@And("^Scroll down and click on page number and next arrow$")
+	public void scroll_down_and_click_on_page_number_and_next_arrow() {
+
 	}
 
 	@When("^finds the broken links for (.+)$")
