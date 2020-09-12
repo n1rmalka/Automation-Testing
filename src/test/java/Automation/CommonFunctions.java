@@ -17,6 +17,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class CommonFunctions extends Base {
+
 	private static FileInputStream fis;
 	public static String cwd = System.getProperty("user.dir");
 	public static Properties obj = new Properties();

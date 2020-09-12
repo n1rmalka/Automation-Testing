@@ -1,4 +1,4 @@
-@smoketest
+@test1
 Feature: Smoke Test
 
   Scenario Outline: Smoke test of the application from Add product to Place order
@@ -8,9 +8,9 @@ Feature: Smoke Test
     And user click on term & condtions checkbox
     And clicks checkout button
     Then click here to login link should be displayed
-    And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<Country>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
+    And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
     And Click on Shipping diffrent address checkbox
-    And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<Country>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
+    And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
     And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
     And User click on website terms and conditions
     And Click on Place order button
@@ -18,8 +18,8 @@ Feature: Smoke Test
     And browser is closed
 
     Examples: 
-      | ID    | Description                        | firstname | lastname | address1  | address2 | Country | State   | city     | postalcode | phonenumber | email    | cardnumber       | cardexpdate | cardcvc |
-      | TC_01 | End to End test of the application | Evan      | More     | Main Road | Circle   | India   | Gujarat | Vadodara |       3904 |    98745678 | evanmore | 4242424242424242 |        0325 |     123 |
+      | ID    | Description                        | firstname | lastname | address1                 | address2 | State    | city    | postalcode | phonenumber | email    | cardnumber       | cardexpdate | cardcvc |
+      | TC_01 | End to End test of the application | Evan      | More     | 3647 173rd Court Lansing | Circle   | Illinois | Lansing |      60438 | 987-456-78  | evanmore | 4242424242424242 |        0325 |     123 |
 
   @Searchproduct
   Scenario Outline: Smoke test of the application from Search product to Add product to Place order
@@ -32,8 +32,9 @@ Feature: Smoke Test
     #And Enter count "<qty>"
     And Click on Change address and enter new local address "<Country>","<State>","<city>","<postalcode>"
     And click on Proceed to checkout button
-    And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<Country>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
-    And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<Country>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
+     And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
+    And Click on Shipping diffrent address checkbox
+    And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
     And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
     And User click on website terms and conditions
     And Click on Place order button
@@ -44,47 +45,25 @@ Feature: Smoke Test
       | ID    | Description                            | searchtext | coupon  | qty | Country | State   | firstname | lastname | address1         | address2        | city     | postalcode | phonenumber | email      | cardnumber       | cardexpdate | cardcvc |
       | TC_01 | Search Product and Add to cart product | Almond     | SAVEME5 |   1 | India   | Gujarat | Franky    | Dean     | First Cross Road | LakeView Garden | Vadodara |       3960 |    98525678 | frankydean | 4242424242424242 |        0325 |     123 |
 
-  @functionaltest
-  Scenario Outline: Smoke test of the application Homepage functional test
-    Given User is on home page
-    Then User close the discount popup
-    And Scroll down and click on see all deals
-    And Verify the deal page meesage
-    And Click back button of browser
-    And Scroll down and  left and right arrow
-    And Scroll up and hover on categories "<category>"
-    And Click on Sub Category "<subcategory>"
-    And Click on Show more on narrow choice
-    And Click on Show less on narrow choice
-    And Verify the radio button is enable and click on radio button
-    And Click on rating checkbox
-    And Scroll down and click on page number and next arrow
-    And User adds a product to cart
-    And Click back button of browser
-    And Click on Quick view
-
-    Examples: 
-      | ID    | Description                        | category               | subcategory |
-      | TC_01 | Functional test of the application | Vitamins & Supplements | Amino Acids |
-
   @signin
   Scenario Outline: Smoke test of the application Signin Forgot your password link functional test
     Given User is on home page
     Then User close the discount popup
     And Click on Signin and verify the title "<title>"
+    And Click on Forgot your password link
+    And Enter Email address "<email>" and click on submit button
+    And Click on Return to log in link
+    And Click on Forgot your password link
+    And Enter Email address "<email>" and click on submit button
+    And Click on Resend recovery link
+    And Open email and enter email address "<email>"
+    And Enter the "<new password>" and the "<confirm password>" and click on submit button
+    And Enter "<username>", "<password>" and click on submit button
+    And user should be logged in
+    And browser is closed
 
-    #And Click on Forgot your password link
-    #And Enter Email address "<email>" and click on submit button
-    #And Verify the lost password page title
-    #And Click on Return to log in link
-    #And Click on Forgot your password link
-    #And Enter Email address "<email>" and click on submit button
-    #And Click on Resend recovery link
-    #And Open email and enter email address "<email>"
-    #And click on reset password link
-    #And Enter "<new password>" and "<confirm password>" and click on submit button
-    #And Enter "<Username>", "<Password>" and click on submit button
-    #And user should be logged in
     Examples: 
-      | ID    | Description                        | title              | subcategory |
-      | TC_01 | Functional test of the application | Returning Customer | Amino Acids |
+      | ID    | Description                        | title              | email                     | new password | confirm password | username                  | password |
+      | TC_01 | Functional test of the application | Returning Customer | northsee24@mailinator.com | Test@123     | Test@123         | northsee24@mailinator.com | Test@123 |
+
+ 

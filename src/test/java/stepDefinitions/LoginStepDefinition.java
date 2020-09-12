@@ -55,12 +55,19 @@ public class LoginStepDefinition extends Base {
 		if (loginPage == null) {
 			loginPage = new LoginPage(driver);
 			loginPage.verifyLogin();
+			Thread.sleep(5000);
 		}
 	}
 
 	@And("^billing details section should be displayed$")
 	public void billing_details_section_should_be_displayed() throws Throwable {
 		checkoutPage.verifyBillingDetailsDisplayed();
+	}
+
+	@And("^click on logout and verify the message$")
+	public void click_on_logout_and_verify_the_message() throws Throwable {
+		loginPage.clicklogout();
+		loginPage.verifyLogout();
 	}
 
 	@And("^browser is closed$")

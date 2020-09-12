@@ -27,6 +27,8 @@ public class LoginPage {
 	private static WebElement passwordTextBox;
 	@FindBy(xpath = "//input[@value='Login']")
 	private static WebElement loginButton;
+	@FindBy(xpath = "//li[@class='woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--customer-logout']//a[1]")
+	private static WebElement logoutButton;
 
 	public void enterEmailAddress(String email) {
 		oCommonFunctions.sendKey(emailTextBox, email, 10);
@@ -40,9 +42,14 @@ public class LoginPage {
 		oCommonFunctions.clickElement(loginButton, 10);
 	}
 
+	public void clicklogout() {
+		oCommonFunctions.clickElement(logoutButton, 10);
+
+	}
+
 	public void verifyLogout() {
-		Assert.assertTrue(driver.getTitle().contains("Sign in"));
-		Assert.assertTrue(driver.getPageSource().contains("Sign in with your email"));
+		Assert.assertTrue(driver.getTitle().contains("Login"));
+		Assert.assertTrue(driver.getPageSource().contains("Sign In with Social Media"));
 	}
 
 	public void verifyLogin() {

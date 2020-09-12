@@ -27,26 +27,32 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {
-		"classpath:features/SmokeTest.feature" }, glue = "stepDefinitions", monochrome = true, plugin = {
-				"com.cucumber.listener.ExtentCucumberFormatter:", "pretty", "html:target/cucumber",
-				"json:target/cucumber.json", "junit:target/cukes.xml" }, tags = { "@signin" })
+
+		"classpath:features/SearchAddToCart.feature", "classpath:features/HomeAddToCart.feature",
+		"classpath:features/SignIn.feature", "classpath:features/Login.feature", "classpath:features/Home.feature"
+
+}, glue = "stepDefinitions", monochrome = true, plugin = { "com.cucumber.listener.ExtentCucumberFormatter:", "pretty",
+		"html:target/cucumber", "json:target/cucumber.json", "junit:target/cukes.xml" }
+// ,tags = { "@test1" }
+)
 public class TestRunner extends Base {
 
-	private static String outputDir = "reportoutput/" + new Date().toString().substring(0, 10);
+	private static String outputDir = "test-output/" + new Date();
 	private String timestamp = new SimpleDateFormat("_HHmmss").format(new Date());
 
-	@BeforeSuite
-	public void setUP_Mobilenop() throws IOException, AWTException {
-		ExtentProperties extentProperties = ExtentProperties.INSTANCE;
-		extentProperties.setReportPath(outputDir + "/ExtentReport" + timestamp + ".html");
-	}
+	// @BeforeClass
+	// public void init() throws IOException, AWTException {
+	//
+	// ExtentProperties extentProperties = ExtentProperties.INSTANCE;
+	// extentProperties.setReportPath(outputDir + "/ExtentReport" + timestamp +
+	// ".html");
+	// }
 
 	@AfterClass
 	public static void loadreportfile() {
-
 		Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
 		Reporter.setSystemInfo("user", System.getProperty("user.name"));
 		Reporter.setSystemInfo("os", "Windows");
-		Reporter.setTestRunnerOutput("Sample test runner output message");
+		driver.close();
 	}
 }

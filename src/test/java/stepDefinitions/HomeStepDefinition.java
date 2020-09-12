@@ -1,9 +1,5 @@
 package stepDefinitions;
 
-import cucumber.api.DataTable;
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -34,12 +30,13 @@ import Automation.Base;
 
 @RunWith(Cucumber.class)
 public class HomeStepDefinition extends Base {
+
 	// public WebDriver driver = null;
 	LoginPage loginPage;
 	HomePage homePage;
 	CheckoutPage checkoutPage;
 	BillingPage billingPage;
-	public String secs = new SimpleDateFormat("ss").format(new Date());
+	public String time = new SimpleDateFormat("HHmmss").format(new Date());
 	String contractTitle;
 	String contractDescription;
 	String contractValue;
@@ -53,6 +50,7 @@ public class HomeStepDefinition extends Base {
 	String renewDuration;
 	String renewDurationUnit;
 	String totalamount;
+	String Email;
 
 	@Given("^User is on home page$")
 	public void user_is_on_home_page() throws Throwable {
@@ -70,9 +68,6 @@ public class HomeStepDefinition extends Base {
 
 	@Then("^User close the discount popup$")
 	public void user_close_the_discount_popup() throws Throwable {
-		// WebDriverWait wait = new WebDriverWait(driver, 5);
-		// wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='sgcboxClose']")));
-		// driver.findElement(By.xpath("//button[@id='sgcboxClose']")).click();
 
 		homePage.clicktoclosepopup();
 		Thread.sleep(2000);
@@ -81,6 +76,7 @@ public class HomeStepDefinition extends Base {
 	@When("^User adds a product to cart$")
 	public void user_adds_a_product_to_cart() throws Throwable {
 		homePage.clickAddToCartLink();
+
 	}
 
 	@And("^user click on term & condtions checkbox$")
@@ -109,10 +105,10 @@ public class HomeStepDefinition extends Base {
 		checkoutPage.verifyClickHereToLoginLinkDisplayed();
 	}
 
-	@And("^Fill the billing details of the  user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
+	@And("^Fill the billing details of the  user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
 	public void fill_the_billing_details_of_the_user(String firstname, String lastname, String address1,
-			String address2, String Country, String State, String city, String postalcode, String phonenumber,
-			String email) throws Throwable {
+			String address2, String state, String city, String postalcode, String phonenumber, String email)
+			throws Throwable {
 
 		Thread.sleep(1000);
 		billingPage = new BillingPage(driver);
@@ -120,14 +116,20 @@ public class HomeStepDefinition extends Base {
 		billingPage.enterBilllastname(lastname);
 		billingPage.enterBilladdr_1(address1);
 		billingPage.enterBilladdr_2(address2);
-		billingPage.selectBillCountry(Country);
-		billingPage.drpBillState(State);
+		billingPage.drpBillState(state);
 		billingPage.enterBillcity(city);
-		billingPage.enterBillpostalcode(postalcode + secs);
-		billingPage.enterBillphonenumber(phonenumber + secs);
-		billingPage.enterBillemail(email + secs + secs + secs + "@yopmail.com");
+		billingPage.enterBillpostalcode(postalcode);
+		billingPage.enterBillphonenumber(phonenumber + time);
+		billingPage.enterBillemail(email + time + "@mailinator.com");
+		Email = driver.findElement(By.xpath("//*[@id='billing_email_field']/span")).getText();
+		System.out.println("Email address is : " + Email);
 		Thread.sleep(5000);
 
+	}
+
+	@And("^User entering new password \"([^\"]*)\"$")
+	public void user_entering_new_password(String password) throws Throwable {
+		billingPage.enternewpassword(password);
 	}
 
 	@And("^Click on Shipping diffrent address checkbox$")
@@ -135,22 +137,21 @@ public class HomeStepDefinition extends Base {
 		billingPage.clickShippingCheckbox();
 	}
 
-	@And("^Fill the shipping details of the  user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
+	@And("^Fill the shipping details of the  user \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
 	public void fill_the_shipping_details_of_the_user(String firstname, String lastname, String address1,
-			String address2, String country, String state, String city, String postalcode, String phonenumber,
-			String email) throws Throwable {
+			String address2, String state, String city, String postalcode, String phonenumber, String email)
+			throws Throwable {
 		Thread.sleep(1000);
 		// billingPage = new BillingPage(driver);
 		billingPage.enterShippingfirstname(firstname);
 		billingPage.enterShippinglastname(lastname);
 		billingPage.enterShippingaddr_1(address1);
 		billingPage.enterShippingaddr_2(address2);
-		billingPage.selectShippingCountry(country);
 		billingPage.drpShippingState(state);
 		billingPage.enterShippingcity(city);
-		billingPage.enterShippingpostalcode(postalcode + secs);
-		billingPage.enterShippingphonenumber(phonenumber + secs);
-		billingPage.enterShippingemail(email + secs + secs + secs + "@mailinator.com");
+		billingPage.enterShippingpostalcode(postalcode);
+		billingPage.enterShippingphonenumber(phonenumber + time);
+		billingPage.enterShippingemail(email + time + "@mailinator.com");
 		Thread.sleep(5000);
 	}
 
@@ -183,71 +184,84 @@ public class HomeStepDefinition extends Base {
 				"//*[@class='woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received']")));
 	}
 
-	@And("^Verify the place order message$")
-	public void verify_the_place_order_message() throws Throwable {
-		throw new PendingException();
-	}
-
 	@And("^Verify the Total amount$")
 	public void verify_the_total_amount() throws Throwable {
 		totalamount = driver.findElement(By.xpath("//th[contains(text(),'Total')]//following::span[1]")).getText();
 		Assert.assertEquals(totalamount, totalamount);
 		System.out.println(totalamount);
+		Assert.assertTrue(driver.getPageSource().contains("Thank you."));
 	}
 
 	@And("^Scroll down and click on see all deals$")
 	public void scroll_down_and_click_on_see_all_deals() {
-
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(0,250)");
+		jse.executeScript("window.scrollBy(0,250)");
+		driver.findElement(By.xpath("//div[@class='deal-section']//a[contains(text(),'See All Deals')]")).click();
 	}
 
 	@And("^Verify the deal page meesage$")
 	public void verify_the_deal_page_meesage() {
-
+		Assert.assertTrue(driver.getPageSource().contains("No products were found matching your selection"));
 	}
 
 	@And("^Click back button of browser$")
 	public void click_back_button_of_browser() {
-
+		driver.navigate().back();
 	}
 
-	@And("^Scroll down and  left and right arrow$")
-	public void scroll_down_and_left_and_right_arrow() {
+	@And("^Scroll down and left and right arrow$")
+	public void scroll_down_and_left_and_right_arrow() throws Throwable {
 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@class='dealowl-carousel2 owl-theme owl-carousel']//div[@class='owl-next']"))
+				.click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@class='dealowl-carousel2 owl-theme owl-carousel']//div[@class='owl-prev']"))
+				.click();
+		Thread.sleep(2000);
 	}
 
-	@And("^Scroll up and hover on categories \"([^\"]*)\"$")
-	public void scroll_up_and_hover_on_categories_something(String category, String strArg1) {
+	@And("^Scroll up and click on categories \"([^\"]*)\"$")
+	public void scroll_up_and_click_on_categories(String category) throws Throwable {
 
+		Thread.sleep(2000);
+		driver.findElement(By
+				.xpath("//body[@class='home page-template-default page page-id-5 theme-Divi wc-braintree-body woocommerce-js mega-menu-primary-menu et_pb_button_helper_class et_fullwidth_secondary_nav et_non_fixed_nav et_show_nav et_hide_primary_logo et_secondary_nav_enabled et_secondary_nav_two_panels et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_header_style_left et_pb_footer_columns5 et_cover_background et_pb_gutter windows et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db wc-add-to-cart-icon responsive-menu-slide-left chrome']/div[@id='main-content']/article[@id='post-5']/div[@class='entry-content']/ul[@class='sect new_cat_home']/li[1]/a[1]"))
+				.click();
+		Thread.sleep(2000);
 	}
 
 	@And("^Click on Sub Category \"([^\"]*)\"$")
-	public void click_on_sub_category_something(String subcategory, String strArg1) {
+	public void click_on_sub_category(String subcategory) throws Exception {
+		driver.findElement(By.xpath("//li[contains(@class,'woof_term_644')]//ins[@class='iCheck-helper']")).click();
+		Thread.sleep(2000);
+	}
 
+	@And("^Click on price radio button$")
+	public void click_on_price_radio_button() throws Throwable {
+		driver.findElement(By.xpath("//li[contains(@class,'woof_term_644')]//ins[@class='iCheck-helper']"));
+		Thread.sleep(2000);
 	}
 
 	@And("^Click on Show more on narrow choice$")
-	public void click_on_show_more_on_narrow_choice() {
-
+	public void click_on_show_more_on_narrow_choice() throws Throwable {
+		driver.findElement(By
+				.xpath("//div[@class='woof_container_inner woof_container_inner_productcategories']//a[@class='woof_open_hidden_li_btn'][contains(text(),'Show more')]"))
+				.click();
+		Thread.sleep(2000);
 	}
 
 	@And("^Click on Show less on narrow choice$")
-	public void click_on_show_less_on_narrow_choice() {
-
-	}
-
-	@And("^Verify the radio button is enable and click on radio button$")
-	public void verify_the_radio_button_is_enable_and_click_on_radio_button() {
-
+	public void click_on_show_less_on_narrow_choice() throws Throwable {
+		driver.findElement(By.xpath("//a[contains(text(),'Show less')]")).click();
+		Thread.sleep(2000);
 	}
 
 	@And("^Click on rating checkbox$")
-	public void click_on_rating_checkbox() {
-
-	}
-
-	@And("^Scroll down and click on page number and next arrow$")
-	public void scroll_down_and_click_on_page_number_and_next_arrow() {
-
+	public void click_on_rating_checkbox() throws Throwable {
+		driver.findElement(By.xpath("//li[1]//label[1]//span[1]//label[1]")).click();
+		Thread.sleep(2000);
 	}
 
 	@When("^finds the broken links for (.+)$")

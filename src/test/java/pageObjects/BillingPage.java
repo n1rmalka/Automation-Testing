@@ -1,5 +1,7 @@
 package pageObjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -82,6 +84,10 @@ public class BillingPage {
 	@FindBy(xpath = "//input[contains(@id,'shipping_email')]")
 	private static WebElement Shippingemail;
 
+	/* PassWord */
+	@FindBy(xpath = "//input[@id='account_password']")
+	private static WebElement txtpassword;
+
 	@FindBy(xpath = "//input[contains(@id,'terms')]")
 	private static WebElement terms_ConditionCheckbox;
 	@FindBy(xpath = "//button[contains(text(),'Place order')]")
@@ -99,7 +105,15 @@ public class BillingPage {
 	}
 
 	public void enterBilladdr_1(String address1) {
+
 		oCommonFunctions.sendKey(Billaddr1, address1, 10);
+		List<WebElement> elements = driver.findElements(By.xpath("//*[@id='billing_address_1_field']/span"));
+		for (WebElement element : elements) {
+			if (element.getText().equalsIgnoreCase(address1)) {
+				element.click();
+				break;
+			}
+		}
 
 	}
 
@@ -108,10 +122,10 @@ public class BillingPage {
 
 	}
 
-	public void selectBillCountry(String Country) {
-		oCommonFunctions.sleepWait(2);
-		oCommonFunctions.drp_select(drpBillCountry, Country, 5);
-	}
+	// public void selectBillCountry(String Country) {
+	// oCommonFunctions.sleepWait(2);
+	// oCommonFunctions.drp_select(drpBillCountry, Country, 5);
+	// }
 
 	// public void enterBillState(String State) {
 	// oCommonFunctions.sleepWait(2);
@@ -143,6 +157,9 @@ public class BillingPage {
 
 	}
 
+	public void enternewpassword(String password) {
+		oCommonFunctions.sendKey(txtpassword, password, 10);
+	}
 	/*-----------------------Shipping Address Method---------------------*/
 
 	public void clickShippingCheckbox() {
@@ -162,6 +179,14 @@ public class BillingPage {
 
 	public void enterShippingaddr_1(String address1) {
 		oCommonFunctions.sendKey(Shippingaddr1, address1, 10);
+		List<WebElement> elements = driver.findElements(
+				By.xpath("//p[@id='shipping_address_1_field']//span[@class='woocommerce-input-wrapper']"));
+		for (WebElement element : elements) {
+			if (element.getText().equalsIgnoreCase(address1)) {
+				element.click();
+				break;
+			}
+		}
 
 	}
 

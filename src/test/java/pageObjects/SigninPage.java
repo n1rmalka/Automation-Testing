@@ -53,4 +53,53 @@ public class SigninPage extends Base {
 
 	}
 
+	public void clickForgetPasswordLink() {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.clickElement(forgotPasswordlink, 5);
+
+	}
+
+	public void enterEmail(String email) {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.sendKey(btnUserEmail, email, 5);
+	}
+
+	public void clickBtnSubmit() {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.clickElement(btnSubmit, 10);
+	}
+
+	public void clickRecoveryLink() {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.clickElement(Resendrecoverylink, 10);
+	}
+
+	public void clickResendRecoveryLink() {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.clickElement(Resendrecoverylink, 10);
+	}
+
+	public void enterUsername(String username) {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.sendKey(loginUsername, username, 5);
+	}
+
+	public void enterPassword(String password) {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.sendKey(loginPassword, password, 5);
+	}
+
+	public void enterNewPassword(String newpassword) {
+		for (String winHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(winHandle);
+			oCommonFunctions.sleepWait(1);
+			oCommonFunctions.sendKey(txtbxnewPassword, newpassword, 5);
+		}
+	}
+
+	public void enterConfirmPassword(String confirmpassword) {
+		oCommonFunctions.sleepWait(1);
+		oCommonFunctions.sendKey(txtbxretypePassword, confirmpassword, 5);
+	}
+
 }

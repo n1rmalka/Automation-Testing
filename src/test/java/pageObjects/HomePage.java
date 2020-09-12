@@ -48,7 +48,7 @@ public class HomePage extends Base {
 	public static WebElement sgboxclose;
 	@FindBy(xpath = "//input[@id='term_pop']")
 	public static WebElement termsCheckbox;
-	@FindBy(xpath = "//a[contains(@href,'/checkout')]")
+	@FindBy(xpath = "//a[contains(@href,'/checkout') and contains(@class,'my_cjecked')]")
 	public static WebElement proceedToCheckoutButton;
 	@FindBys({ @FindBy(xpath = "//img[contains(@src,'https://www.40plusmart.com/wp-content/uploads/')]") })
 	public List<WebElement> supplementsLink;
@@ -56,9 +56,9 @@ public class HomePage extends Base {
 	public static WebElement supplements_5HTPLink;
 	@FindBys({ @FindBy(xpath = "//h2[text()='Added to cart successfully!']") })
 	public List<WebElement> addedToCartConfirmationMessageText;
-	@FindBy(xpath = "//*[@class='product-desc woocommerce']")
+	@FindBy(xpath = "//span[@class='et_shop_image']//img[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail']")
 	public static WebElement productImage;
-	@FindBy(xpath = "//*[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail']")
+	@FindBy(xpath = "//span[@class='et_shop_image']//img[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail'] ")
 	public static WebElement productimage2;
 	@FindBy(xpath = "//*[contains(text(),'Quick View')]")
 	public static WebElement QuickViewLink;
@@ -68,9 +68,9 @@ public class HomePage extends Base {
 	public static WebElement SearchTextBox;
 	@FindBy(xpath = "//*[@id='searchsubmit_header']")
 	public static WebElement BtnSerach;
-	@FindBy(xpath = "//*[@id='coupon_code']")
+	@FindBy(xpath = "//input[@id='coupon_code']")
 	public static WebElement txtbxcouponcode;
-	@FindBy(xpath = "//*[@name='apply_coupon']")
+	@FindBy(xpath = "//button[@name='apply_coupon']")
 	public static WebElement btnapplycoupon;
 	@FindBy(xpath = "//*[contains(@id,'quantity')]")
 	public static WebElement txtbxqty;
@@ -86,12 +86,19 @@ public class HomePage extends Base {
 	public static WebElement btnshippingupdate;
 	@FindBy(xpath = "(//a[contains(@href,'/checkout/') and contains(text(),'roceed to checkout')])")
 	public static WebElement btnproceedtocheckout;
-	@FindBy(xpath = "//*[@class='shipping-calculator-button' and contains(text(),'Calculate shipping')]")
-	public static WebElement labelCalculateshipping;
+	@FindBy(xpath = "//a[@class='shipping-calculator-button']")
+	public static WebElement labelChangeAddress;
 	@FindBy(xpath = "//*[@id='calc_shipping_state']")
 	public static WebElement drpshipState;
 	@FindBy(xpath = "//*[@id='calc_shipping_country']")
 	public static WebElement drpshipCountry;
+
+	@FindBy(xpath = "//*[@id='calc_shipping_country']")
+	public static WebElement labelSubCat;
+
+	// functional links and icons
+	@FindBy(xpath = "//button[@name='add-to-cart']")
+	public static WebElement labelseeAlldeals;
 	public Actions act;
 
 	public void clearbrowserhistory() {
@@ -182,15 +189,14 @@ public class HomePage extends Base {
 	public void clickbtnAddtocart() throws InterruptedException {
 
 		oCommonFunctions.clickElement(btnaddToCart, 5);
-		Thread.sleep(2000);
 	}
 
 	public void enterCouponcode(String coupon) {
-		oCommonFunctions.sendKey(txtbxcouponcode, coupon, 5);
+		oCommonFunctions.sendKey(txtbxcouponcode, coupon, 10);
 	}
 
 	public void clickbtnApplycoupon() {
-		oCommonFunctions.clickElement(btnapplycoupon, 5);
+		oCommonFunctions.clickElement(btnapplycoupon, 10);
 	}
 
 	public void enterQty(String qty) throws InterruptedException {
@@ -204,7 +210,7 @@ public class HomePage extends Base {
 	// oCommonFunctions.clickElement(btnqtyupdate, 5);
 	// }
 	public void clicklabelCalShippping() {
-		oCommonFunctions.clickElement(labelCalculateshipping, 5);
+		oCommonFunctions.clickElement(labelChangeAddress, 5);
 	}
 
 	public void entercalcshippingcity(String city) {
@@ -234,9 +240,19 @@ public class HomePage extends Base {
 		oCommonFunctions.clickElement(btnproceedtocheckout, 5);
 	}
 
-	
-	
-	/* Verify the URL*/
+	public void hoverCategory() {
+
+	}
+
+	public void hoverSubCategory() throws Throwable {
+		Thread.sleep(1000);
+		for (int i = 0; i < 1; i++) {
+			oCommonFunctions.clickElement(PlusIcon, 5);
+			Thread.sleep(2000);
+		}
+	}
+
+	/* Verify the URL */
 	public static void verifyLink(String urlLink) {
 
 		try {

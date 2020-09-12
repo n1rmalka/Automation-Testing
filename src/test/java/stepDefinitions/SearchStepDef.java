@@ -27,23 +27,19 @@ public class SearchStepDef extends Base {
 	LoginPage loginPage;
 	HomePage homePage;
 	CheckoutPage checkoutPage;
-	public String secs = new SimpleDateFormat("ss").format(new Date());
+	public String time = new SimpleDateFormat("HHmmss").format(new Date());
 
 	@And("^search product \"([^\"]*)\" and click on search product$")
 	public void search_product_and_click_on_search_product(String searchtext) throws Throwable {
-
-		// driver.findElement(By.xpath("//input[@id='search_my']")).click();
 		homePage = new HomePage(driver);
 		homePage.searchproduct(searchtext);
 		homePage.clicksearchproductbtn();
-
-		// driver.findElement(By.xpath("//*[@id='search_my']")).sendKeys(searchtext);
-		// driver.findElement(By.xpath("//*[@id='searchsubmit_header']")).click();
 
 	}
 
 	@And("^Click on Quick view$")
 	public void click_on_quick_view() throws Throwable {
+		homePage = new HomePage(driver);
 		homePage.clickQuickLink();
 		Thread.sleep(2000);
 	}
@@ -52,18 +48,17 @@ public class SearchStepDef extends Base {
 	public void click_on_plus_button_and_click_on_add_to_cart() throws Throwable {
 		homePage.clickplusicon();
 		homePage.clickbtnAddtocart();
+		Thread.sleep(2000);
 	}
 
 	@And("^Enter coupon code \"([^\"]*)\" and click on apply coupn button$")
 	public void enter_coupon_code_and_click_on_apply_coupn_button(String coupon) throws Throwable {
-
+		Thread.sleep(2000);
+		homePage = new HomePage(driver);
 		homePage.enterCouponcode(coupon);
 		homePage.clickbtnApplycoupon();
 		Thread.sleep(2000);
-		String couponsuccessfullyMessage = driver.findElement(By.xpath("//div[@class='woocommerce-message']"))
-				.getText();
-		Assert.assertEquals("Coupon code applied successfully.", couponsuccessfullyMessage);
-		System.out.println(couponsuccessfullyMessage);
+		Assert.assertTrue(driver.getPageSource().contains("Coupon code applied successfully"));
 	}
 
 	@And("^Enter count \"([^\"]*)\"$")
@@ -83,7 +78,7 @@ public class SearchStepDef extends Base {
 		homePage.selectShippingCountry(Country);
 		homePage.selectShippingState(State);
 		homePage.entercalcshippingcity(city);
-		homePage.entercalcshippingpostcode(postalcode + secs);
+		homePage.entercalcshippingpostcode(postalcode);
 		Thread.sleep(1000);
 		homePage.clickbtnCalShipppingUpdate();
 	}
