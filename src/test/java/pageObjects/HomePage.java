@@ -40,11 +40,13 @@ public class HomePage extends Base {
 
 	@FindBys({ @FindBy(xpath = "//div[text()='Copied the invitation link!']") })
 	public static List<WebElement> toastNotificationMessage;
-	@FindBy(xpath = "//a[contains(text(),'Add to cart')][1]")
+	@FindBy(xpath = "//a[@id='w3s_17237']")
+
+	// a[contains(text(),'Add to cart')][1]
 	public static WebElement addToCartLink;
 	@FindBy(xpath = "//button[@name='add-to-cart']")
 	public static WebElement btnaddToCart;
-	@FindBy(xpath = "//button[@id='sgcboxClose']")
+	@FindBy(xpath = "//button[@id='nothanks']")
 	public static WebElement sgboxclose;
 	@FindBy(xpath = "//input[@id='term_pop']")
 	public static WebElement termsCheckbox;
@@ -56,12 +58,14 @@ public class HomePage extends Base {
 	public static WebElement supplements_5HTPLink;
 	@FindBys({ @FindBy(xpath = "//h2[text()='Added to cart successfully!']") })
 	public List<WebElement> addedToCartConfirmationMessageText;
-	@FindBy(xpath = "//span[@class='et_shop_image']//img[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail']")
+	@FindBy(xpath = "(//*[@class='product-desc woocommerce'])[1]")
 	public static WebElement productImage;
-	@FindBy(xpath = "//span[@class='et_shop_image']//img[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail'] ")
+	@FindBy(xpath = "//span[@class='et_shop_image']//img[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail']")
 	public static WebElement productimage2;
-	@FindBy(xpath = "//*[contains(text(),'Quick View')]")
+	@FindBy(xpath = "(//*[contains(text(),'Quick View')])")
 	public static WebElement QuickViewLink;
+	@FindBy(xpath = "(//*[contains(text(),'Quick View')])[2]")
+	public static WebElement QuickViewLink2;
 	@FindBy(xpath = "//span[contains(@class,'popupbutton num_thr')]")
 	public static WebElement PlusIcon;
 	@FindBy(xpath = "//*[@id='search_my']")
@@ -84,7 +88,7 @@ public class HomePage extends Base {
 	public static WebElement txtbxpostalcode;
 	@FindBy(xpath = "//*[@name='calc_shipping']")
 	public static WebElement btnshippingupdate;
-	@FindBy(xpath = "(//a[contains(@href,'/checkout/') and contains(text(),'roceed to checkout')])")
+	@FindBy(xpath = "(//a[contains(@href,'checkout/') and contains(text(),'roceed to checkout')])")
 	public static WebElement btnproceedtocheckout;
 	@FindBy(xpath = "//a[@class='shipping-calculator-button']")
 	public static WebElement labelChangeAddress;
@@ -110,8 +114,9 @@ public class HomePage extends Base {
 	public void clickAddToCartLink() throws InterruptedException {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,800)");
-		act = new Actions(driver);
+		js.executeScript("window.scrollBy(0,250)");
+		js.executeScript("window.scrollBy(0,250)");
+		// act = new Actions(driver);
 		// act.moveToElement(supplementsLink.get(0)).build().perform();
 		// Thread.sleep(2000);
 		// oCommonFunctions.clickElement(supplements_5HTPLink, 10);
@@ -126,8 +131,12 @@ public class HomePage extends Base {
 	}
 
 	public void clicktoclosepopup() {
+
 		// oCommonFunctions.waitForElementvisible(sgboxclose, 10);
 		oCommonFunctions.clickElement(sgboxclose, 10);
+
+		System.out.println(" no discount pop-up is displayed ");
+
 	}
 
 	public void clickChekoutButton() {
@@ -150,7 +159,7 @@ public class HomePage extends Base {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -170,8 +179,12 @@ public class HomePage extends Base {
 
 		act = new Actions(driver);
 		act.moveToElement(productimage2).build().perform();
-		Thread.sleep(2000);
-		oCommonFunctions.clickElement(QuickViewLink, 5);
+		if (productimage2.isDisplayed()) {
+			oCommonFunctions.clickElement(QuickViewLink, 5);
+		} else {
+			oCommonFunctions.clickElement(QuickViewLink2, 5);
+		}
+
 		Thread.sleep(2000);
 	}
 
@@ -182,7 +195,6 @@ public class HomePage extends Base {
 		Thread.sleep(1000);
 		for (int i = 0; i < 1; i++) {
 			oCommonFunctions.clickElement(PlusIcon, 5);
-			Thread.sleep(2000);
 		}
 	}
 
@@ -236,7 +248,7 @@ public class HomePage extends Base {
 	}
 
 	public void clickbtnProceedcheckout() {
-		oCommonFunctions.sleepWait(5);
+		oCommonFunctions.sleepWait(10);
 		oCommonFunctions.clickElement(btnproceedtocheckout, 5);
 	}
 

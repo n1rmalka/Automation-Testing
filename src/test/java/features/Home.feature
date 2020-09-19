@@ -8,12 +8,13 @@ Feature: Validate the Home Page Functional and Broken links check
     And Click back button of browser
     And Scroll down and left and right arrow
     And Scroll up and click on categories "<category>"
-    And Click on Sub Category "<subcategory>"
-    And Click on price radio button
     And Click on Show more on narrow choice
+    And Click on Sub Category "<subcategory>"
     And Click on Show less on narrow choice
-    And Click on rating checkbox
-    And User adds a product to cart
+    #And Click on price radio button
+    #And Click on rating checkbox
+    And Click on Quick view
+    And Click on plus button and click on add to cart
     And Enter coupon code "<coupon>" and click on apply coupn button
     And Click on Change address and enter new local address "<Country>","<State>","<city>","<postalcode>"
     And click on Proceed to checkout button
@@ -28,8 +29,8 @@ Feature: Validate the Home Page Functional and Broken links check
     And browser is closed
 
     Examples: 
-      | ID    | Description                                  | category               | subcategory | coupon  | Country            | State    | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email      | cardnumber       | cardexpdate | cardcvc | password        |
-      | TC_01 | Home Page functional test of the application | Vitamins & Supplements | Amino Acids | SAVEME5 | United States (US) | New York | Franky    | Dean     | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 | 985-256-78  | frankydean | 4242424242424242 |        0325 |     123 | Testbesttest@20 |
+      | ID    | Description                                  | category               | subcategory | coupon  | Country            | State    | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email   | cardnumber       | cardexpdate | cardcvc | password        |
+      | TC_01 | Home Page functional test of the application | Vitamins & Supplements | Amino Acids | SAVEME5 | United States (US) | New York | Hoss      | Tom      | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 |        9855 | hosstom | 4242424242424242 |        0325 |     123 | Testbesttest@20 |
 
   Scenario Outline: Find Broken Links
     Given User is on home page

@@ -6,7 +6,6 @@ Feature: Validate Add product To Cart and Place Order
     When User adds a product to cart
     And user click on term & condtions checkbox
     And clicks checkout button
-    #Then click here to login link should be displayed
     And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
     And User entering new password "<Password>"
     And Click on Shipping diffrent address checkbox

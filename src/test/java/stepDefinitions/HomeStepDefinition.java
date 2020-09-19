@@ -28,7 +28,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Automation.Base;
 
-@RunWith(Cucumber.class)
 public class HomeStepDefinition extends Base {
 
 	// public WebDriver driver = null;
@@ -68,13 +67,29 @@ public class HomeStepDefinition extends Base {
 
 	@Then("^User close the discount popup$")
 	public void user_close_the_discount_popup() throws Throwable {
+		Thread.sleep(5000);
+		 if (driver.getPageSource().contains("Sign Up Now")) {
+		 driver.findElement(By.xpath("//div[@class='wcb-md-close-never-reminder']")).click();
+		 Thread.sleep(3000);
+		 }
+//		driver.findElement(By.xpath("//*[@id='logo']")).click();
+//		driver.findElement(By.xpath("//h3[contains(text(),'Deals')]")).click();
+//		driver.findElement(By.xpath("//h3[contains(text(),'Deals')]")).click();
+//		Thread.sleep(2000);
 
-		homePage.clicktoclosepopup();
-		Thread.sleep(2000);
+		// if (driver.getPageSource().contains("Sign Up Now")) {
+		// driver.findElement(By.xpath("//a[@id='nothanks']")).click();
+		// } else {
+		// Thread.sleep(2000);
+		// }
+
+		// homePage.clicktoclosepopup();
+
 	}
 
 	@When("^User adds a product to cart$")
 	public void user_adds_a_product_to_cart() throws Throwable {
+		homePage = new HomePage(driver);
 		homePage.clickAddToCartLink();
 
 	}
@@ -121,8 +136,6 @@ public class HomeStepDefinition extends Base {
 		billingPage.enterBillpostalcode(postalcode);
 		billingPage.enterBillphonenumber(phonenumber + time);
 		billingPage.enterBillemail(email + time + "@mailinator.com");
-		Email = driver.findElement(By.xpath("//*[@id='billing_email_field']/span")).getText();
-		System.out.println("Email address is : " + Email);
 		Thread.sleep(5000);
 
 	}
@@ -226,22 +239,34 @@ public class HomeStepDefinition extends Base {
 	public void scroll_up_and_click_on_categories(String category) throws Throwable {
 
 		Thread.sleep(2000);
-		driver.findElement(By
-				.xpath("//body[@class='home page-template-default page page-id-5 theme-Divi wc-braintree-body woocommerce-js mega-menu-primary-menu et_pb_button_helper_class et_fullwidth_secondary_nav et_non_fixed_nav et_show_nav et_hide_primary_logo et_secondary_nav_enabled et_secondary_nav_two_panels et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_header_style_left et_pb_footer_columns5 et_cover_background et_pb_gutter windows et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db wc-add-to-cart-icon responsive-menu-slide-left chrome']/div[@id='main-content']/article[@id='post-5']/div[@class='entry-content']/ul[@class='sect new_cat_home']/li[1]/a[1]"))
+		driver.findElement(By.xpath("(//*[contains(@class,'dropdown-toggle')and contains(text(),'" + category + "')])"))
 				.click();
 		Thread.sleep(2000);
 	}
 
 	@And("^Click on Sub Category \"([^\"]*)\"$")
 	public void click_on_sub_category(String subcategory) throws Exception {
-		driver.findElement(By.xpath("//li[contains(@class,'woof_term_644')]//ins[@class='iCheck-helper']")).click();
-		Thread.sleep(2000);
+		driver.findElement(
+				By.xpath("(//*[contains(@class,'woof_radio_label')and contains(text(),'" + subcategory + "')])"))
+				.click();
+		Thread.sleep(3000);
 	}
 
 	@And("^Click on price radio button$")
 	public void click_on_price_radio_button() throws Throwable {
-		driver.findElement(By.xpath("//li[contains(@class,'woof_term_644')]//ins[@class='iCheck-helper']"));
 		Thread.sleep(2000);
+		List<WebElement> list = driver.findElements(By.xpath("(//*[contains(@name,'woof_price_radio')])"));
+		Boolean is_selected = list.get(0).isSelected();
+
+		if (is_selected == true) {
+			list.get(1).click();
+
+		} else {
+			list.get(0).click();
+		}
+		// }
+		// driver.findElement(By.xpath("//li[contains(@class,'woof_term_644')]//ins[@class='iCheck-helper']"));Thread.sleep(2000);
+
 	}
 
 	@And("^Click on Show more on narrow choice$")

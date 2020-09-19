@@ -27,7 +27,7 @@ public class LoginPage {
 	private static WebElement passwordTextBox;
 	@FindBy(xpath = "//input[@value='Login']")
 	private static WebElement loginButton;
-	@FindBy(xpath = "//li[@class='woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--customer-logout']//a[1]")
+	@FindBy(xpath = "//a[contains(@href,'/customer-logout/')]")
 	private static WebElement logoutButton;
 
 	public void enterEmailAddress(String email) {

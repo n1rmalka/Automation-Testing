@@ -21,5 +21,5 @@ Feature: Validate Search Product and Add to Cart and Place Order
     And browser is closed
 
     Examples: 
-      | ID    | Description                            | searchtext | coupon  | qty | Country            | State    | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email      | cardnumber       | cardexpdate | cardcvc | password        |
-      | TC_01 | Search Product and Add to cart product | Almond     | SAVEME5 |   1 | United States (US) | New York | Franky    | Dean     | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 | 985-256-78  | frankydean | 4242424242424242 |        0325 |     123 | Testbesttest@20 |
+      | ID    | Description                            | searchtext | coupon  | qty | Country            | State    | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email   | cardnumber       | cardexpdate | cardcvc | password        |
+      | TC_01 | Search Product and Add to cart product | Almond     | SAVEME5 |   1 | United States (US) | New York | Hoss      | Tom      | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 |        9856 | hosstom | 4242424242424242 |        0325 |     123 | Testbesttest@20 |

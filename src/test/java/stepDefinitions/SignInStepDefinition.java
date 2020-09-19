@@ -19,7 +19,6 @@ import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.SigninPage;
 
-@RunWith(Cucumber.class)
 public class SignInStepDefinition extends Base {
 
 	String storetitle;

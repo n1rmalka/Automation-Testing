@@ -26,12 +26,12 @@ public class BillingPage {
 
 	@FindBy(xpath = "//*[@id='payment']/ul/li[1]")
 	private static WebElement paymentsection;
-	@FindBy(name = "cardnumber")
+	@FindBy(xpath = "(//*[contains(@name,'cardnumber')])")
 	private static WebElement stripenumber;
 	// @FindBy(id = "stripe-exp-element")
-	@FindBy(name = "exp-date")
+	@FindBy(xpath = "(//*[contains(@name,'exp-date')])")
 	private static WebElement stripeexpdate;
-	@FindBy(name = "cvc")
+	@FindBy(xpath = "(//*[contains(@name,'cvc')])")
 	private static WebElement stripecvc;
 	/*--------------------Billing Locators----------------------*/
 
