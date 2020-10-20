@@ -10,11 +10,11 @@ Feature: Validate Add product To Cart and Place Order
     And User entering new password "<Password>"
     And Click on Shipping diffrent address checkbox
     And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
-    And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
-    And User click on website terms and conditions
-    And Click on Place order button
-    And Verify the Total amount
-    And browser is closed
+   # And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
+    #And User click on website terms and conditions
+    #And Click on Place order button
+    #And Verify the Total amount
+    #And browser is closed
 
     Examples: 
       | ID    | Description                        | firstname | lastname | address1                 | address2 | State    | city    | postalcode | phonenumber | email    | cardnumber       | cardexpdate | cardcvc | password        |

@@ -3,9 +3,9 @@ Feature: Validate the Home Page Functional and Broken links check
   Scenario Outline: Smoke test of the application Homepage functional test
     Given User is on home page
     Then User close the discount popup
-    And Scroll down and click on see all deals
-    And Verify the deal page meesage
-    And Click back button of browser
+    #And Scroll down and click on see all deals
+    #And Verify the deal page meesage
+    #And Click back button of browser
     And Scroll down and left and right arrow
     And Scroll up and click on categories "<category>"
     And Click on Show more on narrow choice

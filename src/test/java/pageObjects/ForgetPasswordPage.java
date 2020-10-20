@@ -42,16 +42,12 @@ public class ForgetPasswordPage extends Base {
 		oCommonFunctions.clickElement(btnGo, 10);
 		oCommonFunctions.clickElement(labelInboxTitle, 10);
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("window.scrollBy(0,250)");
-		jse.executeScript("window.scrollBy(0,250)");
+		// jse.executeScript("window.scrollBy(0,250)");
+		// jse.executeScript("window.scrollBy(0,250)");
 		driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='msg_body']")));
-		// driver.navigate().refresh();
+		oCommonFunctions.scrollToElement(linkClickhere, 5);
 		jse.executeScript("arguments[0].click();", linkClickhere);
-		// driver.findElement(By.xpath("//a[contains(text(),'Click
-		// here')]")).click();
-		Thread.sleep(8000);
-		// oCommonFunctions.clickElement(linkClickhere, 10);
-		// driver.switchTo().defaultContent();
+		// oCommonFunctions.sleepWait(5);
 
 	}
 }

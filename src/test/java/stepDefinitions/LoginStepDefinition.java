@@ -48,8 +48,6 @@ public class LoginStepDefinition extends Base {
 			checkoutPage.enterUsername(username);
 			checkoutPage.enterPassword(password);
 			checkoutPage.clickLogin();
-			Thread.sleep(6000);
-
 		}
 	}
 
@@ -58,7 +56,6 @@ public class LoginStepDefinition extends Base {
 		if (loginPage == null) {
 			loginPage = new LoginPage(driver);
 			loginPage.verifyLogin();
-			Thread.sleep(5000);
 		}
 	}
 
@@ -72,7 +69,7 @@ public class LoginStepDefinition extends Base {
 		loginPage = new LoginPage(driver);
 		loginPage.clicklogout();
 		loginPage.verifyLogout();
-		Thread.sleep(3000);
+
 	}
 
 	@And("^browser is closed$")
@@ -83,11 +80,11 @@ public class LoginStepDefinition extends Base {
 	@And("^Click on Account information and edit the information \"([^\"]*)\",\"([^\"]*)\" and save information$")
 	public void click_on_account_information_and_edit_the_information_and_save_information(String firstname,
 			String lastname) throws Throwable {
-		driver.findElement(By.xpath("//a[@class='my_extra new_form123 first_form']")).click();
-		driver.findElement(By.xpath("//input[@id='account_first_name']")).sendKeys(firstname);
-		driver.findElement(By.xpath("//input[@id='account_last_name']")).sendKeys(lastname);
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@class='btn btn-info']")).click();
+		loginPage = new LoginPage(driver);
+		loginPage.clickAccountEdit();
+		loginPage.enterFirstname(firstname);
+		loginPage.enterLastname(lastname);
+		loginPage.clickbtnSave();
 
 	}
 
@@ -96,11 +93,11 @@ public class LoginStepDefinition extends Base {
 			String address1, String address2, String state, String city, String postalcode, String phonenumber)
 			throws Throwable {
 		if (driver.toString().contains("Add")) {
-			driver.findElement(By.xpath("(//a[contains(@href,'edit-address/billing/') and contains(text(),'Add')])"))
-					.click();
+
+			loginPage.clickbillingAdd();
 		} else {
-			driver.findElement(By.xpath("(//a[contains(@href,'edit-address/billing/') and contains(text(),'Edit')])"))
-					.click();
+
+			loginPage.clickbillingEdit();
 
 		}
 
@@ -114,7 +111,7 @@ public class LoginStepDefinition extends Base {
 		billingPage.enterBillcity(city);
 		billingPage.enterBillpostalcode(postalcode);
 		billingPage.enterBillphonenumber(phonenumber + time);
-		driver.findElement(By.xpath("//button[@name='save_address']")).click();
+		loginPage.clickbtnSave();
 
 	}
 
@@ -123,11 +120,13 @@ public class LoginStepDefinition extends Base {
 			String address1, String address2, String state, String city, String postalcode, String phonenumber)
 			throws Throwable {
 		if (driver.toString().contains("Add")) {
-			driver.findElement(By.xpath("(//a[contains(@href,'/edit-address/shipping/') and contains(text(),'Add')])"))
-					.click();
+
+			loginPage.clickshippingAdd();
+
 		} else {
-			driver.findElement(By.xpath("(//a[contains(@href,'/edit-address/shipping/') and contains(text(),'Edit')])"))
-					.click();
+
+			loginPage.clickshippingEdit();
+
 		}
 		Thread.sleep(1000);
 		billingPage.enterShippingfirstname(firstname);
@@ -138,7 +137,8 @@ public class LoginStepDefinition extends Base {
 		billingPage.enterShippingcity(city);
 		billingPage.enterShippingpostalcode(postalcode);
 		billingPage.enterShippingphonenumber(phonenumber + time);
-		driver.findElement(By.xpath("//button[@name='save_address']")).click();
+		loginPage.clickbtnSave();
+
 	}
 
 }

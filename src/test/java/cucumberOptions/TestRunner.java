@@ -31,17 +31,19 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {
 
-		"classpath:features/Home.feature",
-
-		"classpath:features/SearchAddToCart.feature",
-
 		"classpath:features/HomeAddToCart.feature",
 
-		"classpath:features/SignIn.feature",
-
-		"classpath:features/Login.feature",
-
-		"classpath:features/Signup.feature"
+//		"classpath:features/Home.feature",
+//
+//		"classpath:features/SearchAddToCart.feature",
+//
+//		"classpath:features/SignIn.feature",
+//
+//		"classpath:features/Signup.feature",
+//
+//		"classpath:features/WishList.feature",
+//
+//		"classpath:features/MultipleSearchItems.feature", "classpath:features/Login.feature",
 
 }, glue = "stepDefinitions", monochrome = true, plugin = { "com.cucumber.listener.ExtentCucumberFormatter:", "pretty",
 		"html:target/cucumber", "json:target/cucumber.json", "junit:target/cukes.xml" }

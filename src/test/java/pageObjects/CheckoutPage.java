@@ -53,6 +53,7 @@ public class CheckoutPage {
 
 	public void clickLogin() {
 		oCommonFunctions.clickElement(loginButton, 10);
+		oCommonFunctions.sleepWait(8);
 	}
 	
 	

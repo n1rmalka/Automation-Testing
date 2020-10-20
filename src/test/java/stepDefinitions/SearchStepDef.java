@@ -36,6 +36,12 @@ public class SearchStepDef extends Base {
 
 	}
 
+	@And("^Click on Add to Cart$")
+	public void click_on_add_to_cart() throws Throwable {
+		homePage = new HomePage(driver);
+		homePage.clickSearchAddToCart();
+	}
+
 	@And("^Click on Quick view$")
 	public void click_on_quick_view() throws Throwable {
 		homePage = new HomePage(driver);
@@ -73,7 +79,6 @@ public class SearchStepDef extends Base {
 	public void click_on_change_address_and_enter_new_local_address(String Country, String State, String city,
 			String postalcode) throws Throwable {
 
-		Thread.sleep(4000);
 		homePage.clicklabelCalShippping();
 		// homePage.selectShippingCountry(Country);
 		// homePage.selectShippingState(State);
@@ -85,7 +90,6 @@ public class SearchStepDef extends Base {
 
 	@And("^click on Proceed to checkout button$")
 	public void click_on_proceed_to_checkout_button() throws Throwable {
-		Thread.sleep(2000);
 		homePage.clickbtnProceedcheckout();
 	}
 

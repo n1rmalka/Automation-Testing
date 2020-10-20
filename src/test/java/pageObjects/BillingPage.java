@@ -231,6 +231,7 @@ public class BillingPage {
 	}
 
 	public void enterCardnumber(String cardnumber) {
+
 		oCommonFunctions.scrollToElement(stripenumber, 2);
 		oCommonFunctions.waitForElementvisible(paymentsection, 10);
 		driver.switchTo().frame(driver.findElement(By.xpath("//*[@id='stripe-card-element']/div/iframe")));

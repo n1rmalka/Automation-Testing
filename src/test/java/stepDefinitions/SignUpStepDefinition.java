@@ -11,6 +11,8 @@ import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import Automation.Base;
 import cucumber.api.java.en.And;
@@ -37,6 +39,7 @@ public class SignUpStepDefinition extends Base {
 	public String time = new SimpleDateFormat("HHmmss").format(new Date());
 	public String secs = new SimpleDateFormat("SSS").format(new Date());
 	String storeEmail;
+	public Actions act;
 
 	public SignUpStepDefinition() {
 
@@ -49,12 +52,20 @@ public class SignUpStepDefinition extends Base {
 		Assert.assertTrue(driver.getPageSource().contains("Create an Account"));
 	}
 
+	@And("^User click on Create Account button and verify the messages \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+	public void user_click_on_create_account_button_and_verify_the_messages(String username, String email,
+			String password, String confirmpassword, String agreeterms) throws Throwable {
+		driver.findElement(By.xpath("//input[@id='CreateAccount']")).click();
+
+	}
+
 	@And("^User enters Create an Account details \"([^\"]*)\", \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
 	public void user_enters_create_an_account_details(String username, String mobilenumber, String email,
 			String password, String conpassword) throws Throwable {
 
 		driver.findElement(By.xpath("//input[@id='username']")).sendKeys(username + secs);
-		driver.findElement(By.xpath("//input[@id='phonenumber1']")).sendKeys(mobilenumber + time);
+		// driver.findElement(By.xpath("//input[@id='phonenumber1']")).sendKeys(mobilenumber
+		// + time);
 		driver.findElement(By.xpath("//input[@id='useremail']")).sendKeys(email + time + "@mailinator.com");
 		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
 		driver.findElement(By.xpath("//input[@id='retypepassword']")).sendKeys(conpassword);
@@ -77,6 +88,11 @@ public class SignUpStepDefinition extends Base {
 	public void user_click_on_Create_Account_button_and_Verify_the_message() throws Throwable {
 		driver.findElement(By.xpath("//input[@id='CreateAccount']")).click();
 		Assert.assertTrue(driver.getPageSource().contains("Registration is Successfully!"));
+		act = new Actions(driver);
+		WebElement myaccount = driver.findElement(By.xpath("//a[@id='my_acc_b']"));
+		act.moveToElement(myaccount).build().perform();
+		driver.findElement(By.xpath("//a[contains(text(),'Your Account')]")).click();
+		Thread.sleep(2000);
 		storeEmail = driver.findElement(By.xpath("//*[@id='edit_account1']/div[2]/span")).getText();
 		System.out.println("Email id is : " + storeEmail);
 	}
@@ -88,7 +104,7 @@ public class SignUpStepDefinition extends Base {
 		driver.findElement(By.xpath("//*[contains(@placeholder,'Public Mailinator Inbox')]")).sendKeys(storeEmail);
 		driver.findElement(By.xpath("//button[contains(text(),'G')]")).click();
 		driver.navigate().refresh();
-		driver.findElement(By.xpath("(//*[contains(text(),'40Plusmart')])[1]")).click();
+		driver.findElement(By.xpath("(//a[contains(text(),'lusmart')])")).click();
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0,250)");
 		jse.executeScript("window.scrollBy(0,250)");
