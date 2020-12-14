@@ -30,7 +30,6 @@ import Automation.Base;
 
 public class HomeStepDefinition extends Base {
 
-	// public WebDriver driver = null;
 	LoginPage loginPage;
 	HomePage homePage;
 	CheckoutPage checkoutPage;
@@ -50,6 +49,9 @@ public class HomeStepDefinition extends Base {
 	String renewDurationUnit;
 	String totalamount;
 	String Email;
+	String TrackId;
+	String billingemail;
+	String trackingmessage;
 
 	@Given("^User is on home page$")
 	public void user_is_on_home_page() throws Throwable {
@@ -68,22 +70,20 @@ public class HomeStepDefinition extends Base {
 	@Then("^User close the discount popup$")
 	public void user_close_the_discount_popup() throws Throwable {
 		Thread.sleep(5000);
-		 if (driver.getPageSource().contains("Sign Up Now")) {
-		 driver.findElement(By.xpath("//div[@class='wcb-md-close-never-reminder']")).click();
-		 Thread.sleep(3000);
-		 }
-//		driver.findElement(By.xpath("//*[@id='logo']")).click();
-//		driver.findElement(By.xpath("//h3[contains(text(),'Deals')]")).click();
-//		driver.findElement(By.xpath("//h3[contains(text(),'Deals')]")).click();
-//		Thread.sleep(2000);
+		if (driver.getPageSource().contains("Sign Up Now")) {
+			homePage.clicktoclosepopup();
+			// driver.findElement(By.xpath("//div[contains(text(),'No,
+			// thanks')]")).click();
+			// driver.findElement(By.xpath("(//input[contains(@name,'email')])"))
+			// .sendKeys("northsee" + time + "@yopmail.com");
+			// driver.findElement(By.xpath("(//span[contains(text(),'S')])[21]")).click();
+			// //Assert.assertTrue(driver.getPageSource().contains("Congratulation"));
+			// driver.findElement(By.xpath("//body/div[@id='vi-md_wcb']/div[1]/span[1]")).click();
 
-		// if (driver.getPageSource().contains("Sign Up Now")) {
-		// driver.findElement(By.xpath("//a[@id='nothanks']")).click();
-		// } else {
-		// Thread.sleep(2000);
-		// }
+		} else {
 
-		// homePage.clicktoclosepopup();
+			Thread.sleep(3000);
+		}
 
 	}
 
@@ -135,14 +135,18 @@ public class HomeStepDefinition extends Base {
 		billingPage.enterBillcity(city);
 		billingPage.enterBillpostalcode(postalcode);
 		billingPage.enterBillphonenumber(phonenumber + time);
-		billingPage.enterBillemail(email + time + "@mailinator.com");
+		billingemail = (email + time + "@mailinator.com");
+		System.out.println("Billing Email is :" + billingemail);
+		billingPage.enterBillemail(billingemail);
+
 		Thread.sleep(5000);
 
 	}
 
-	@And("^User entering new password \"([^\"]*)\"$")
-	public void user_entering_new_password(String password) throws Throwable {
+	@And("^User entering new password \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void user_entering_new_password(String password, String confirmpasword) throws Throwable {
 		billingPage.enternewpassword(password);
+		// driver.findElement(By.xpath(""));
 	}
 
 	@And("^Click on Shipping diffrent address checkbox$")
@@ -164,16 +168,18 @@ public class HomeStepDefinition extends Base {
 		billingPage.enterShippingcity(city);
 		billingPage.enterShippingpostalcode(postalcode);
 		billingPage.enterShippingphonenumber(phonenumber + time);
-		billingPage.enterShippingemail(email + time + "@mailinator.com");
+		String shippingemail = (email + time + "@mailinator.com");
+		System.out.println("Shipping Email is :" + shippingemail);
+		billingPage.enterShippingemail(shippingemail);
 		Thread.sleep(5000);
 	}
 
 	@And("^User enter credit card details \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
 	public void user_enter_credit_card_details(String cardnumber, String cardexpdate, String cardcvc) throws Throwable {
 
-		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("window.scrollBy(0,250)");
-		jse.executeScript("window.scrollBy(0,250)");
+		// JavascriptExecutor jse = (JavascriptExecutor) driver;
+		// jse.executeScript("window.scrollBy(0,250)");
+		// jse.executeScript("window.scrollBy(0,250)");
 		billingPage.enterCardnumber(cardnumber);
 		billingPage.enterCardExpDate(cardexpdate);
 		billingPage.enterCardCVC(cardcvc);
@@ -181,14 +187,12 @@ public class HomeStepDefinition extends Base {
 
 	@And("^User click on website terms and conditions$")
 	public void user_click_on_website_terms_and_conditions() throws Throwable {
-		// driver.switchTo().defaultContent();
 
 		totalamount = driver.findElement(By.xpath("//th[contains(text(),'Total')]//following::span[1]")).getText();
 		Thread.sleep(2000);
 		billingPage.clickTerms_ConditionCheckbox();
 	}
 
-	/* HomePage Functional test */
 	@And("^Click on Place order button$")
 	public void click_on_place_order_button() throws Throwable {
 		billingPage.clickPlaceorderbutton();
@@ -203,14 +207,38 @@ public class HomeStepDefinition extends Base {
 		Assert.assertEquals(totalamount, totalamount);
 		System.out.println(totalamount);
 		Assert.assertTrue(driver.getPageSource().contains("Thank you."));
+		Thread.sleep(5000);
+		if (driver.getPageSource().contains("Invite friends. Get 20% off all products")) {
+			driver.findElement(By.xpath("//*[@class='closeLollipopFrameJS text__small popup__link']")).click();
+
+		}
+		TrackId = driver.findElement(By.xpath("(//li[contains(text(),'Order number')]//following::strong)[1]"))
+				.getText();
+		Thread.sleep(3000);
 	}
+
+	@And("^Track the order$")
+	public void track_the_order() throws Throwable {
+		homePage.ClickBtnTrackOrder();
+	}
+
+	@And("^Enter track details$")
+	public void enter_track_details() throws Throwable {
+		homePage.EnterOrderDetails(TrackId, billingemail);
+		homePage.ClickBtnTrack();
+		trackingmessage = driver.findElement(By.xpath("//div[@class='track_fail_msg']")).getText();
+		System.out.println(trackingmessage);
+		Assert.assertEquals("Tracking details not found.", "Tracking details not found.");
+
+	}
+
+	/* HomePage Functional test */
 
 	@And("^Scroll down and click on see all deals$")
 	public void scroll_down_and_click_on_see_all_deals() {
-		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("window.scrollBy(0,250)");
-		jse.executeScript("window.scrollBy(0,250)");
-		driver.findElement(By.xpath("//div[@class='deal-section']//a[contains(text(),'See All Deals')]")).click();
+		homePage = new HomePage(driver);
+		homePage.ClickSeeAllDeals();
+
 	}
 
 	@And("^Verify the deal page meesage$")
@@ -223,15 +251,17 @@ public class HomeStepDefinition extends Base {
 		driver.navigate().back();
 	}
 
+	@And("^Swtich to Night View$")
+	    public void swtich_to_night_view() throws Throwable {
+	        driver.findElement(By.xpath("(//*[contains(@class,'toggle')])[1]")).click();
+	    }
+
 	@And("^Scroll down and left and right arrow$")
 	public void scroll_down_and_left_and_right_arrow() throws Throwable {
-
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//div[@class='dealowl-carousel2 owl-theme owl-carousel']//div[@class='owl-next']"))
-				.click();
+		homePage.ClickRightArrow();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//div[@class='dealowl-carousel2 owl-theme owl-carousel']//div[@class='owl-prev']"))
-				.click();
+		homePage.ClickLeftArrow();
 		Thread.sleep(2000);
 	}
 
@@ -264,28 +294,23 @@ public class HomeStepDefinition extends Base {
 		} else {
 			list.get(0).click();
 		}
-		// }
-		// driver.findElement(By.xpath("//li[contains(@class,'woof_term_644')]//ins[@class='iCheck-helper']"));Thread.sleep(2000);
-
 	}
 
 	@And("^Click on Show more on narrow choice$")
 	public void click_on_show_more_on_narrow_choice() throws Throwable {
-		driver.findElement(By
-				.xpath("//div[@class='woof_container_inner woof_container_inner_productcategories']//a[@class='woof_open_hidden_li_btn'][contains(text(),'Show more')]"))
-				.click();
+		homePage.ClickShowMore();
 		Thread.sleep(2000);
 	}
 
 	@And("^Click on Show less on narrow choice$")
 	public void click_on_show_less_on_narrow_choice() throws Throwable {
-		driver.findElement(By.xpath("//a[contains(text(),'Show less')]")).click();
+		homePage.ClickShowLess();
 		Thread.sleep(2000);
 	}
 
 	@And("^Click on rating checkbox$")
 	public void click_on_rating_checkbox() throws Throwable {
-		driver.findElement(By.xpath("//li[1]//label[1]//span[1]//label[1]")).click();
+		homePage.ClickRadioBtnFiveStar();
 		Thread.sleep(2000);
 	}
 
@@ -296,15 +321,5 @@ public class HomeStepDefinition extends Base {
 		}
 		homePage.verifyLink(url);
 	}
-
-	// @After
-	// public void tearDown() {
-	// driver.quit();
-	// }
-	//
-	// @Before
-	// public void setup() throws IOException {
-	// driver = Base.getDriver();
-	// }
 
 }

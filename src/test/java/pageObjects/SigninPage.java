@@ -67,6 +67,7 @@ public class SigninPage extends Base {
 	public void clickBtnSubmit() {
 		oCommonFunctions.sleepWait(1);
 		oCommonFunctions.clickElement(btnSubmit, 10);
+		oCommonFunctions.sleepWait(5);
 	}
 
 	public void clickRecoveryLink() {

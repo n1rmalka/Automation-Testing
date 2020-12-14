@@ -30,9 +30,9 @@ public class ForgetPasswordPage extends Base {
 	public static WebElement txtbxInbox;
 	@FindBy(xpath = "//button[contains(text(),'G')]")
 	public static WebElement btnGo;
-	@FindBy(xpath = "(//*[contains(text(),'40Plusmart')])[1]")
+	@FindBy(xpath = "(//*[contains(text(),'Reset')])[1]")
 	public static WebElement labelInboxTitle;
-	@FindBy(xpath = "//a[contains(text(),'Click here')]")
+	@FindBy(xpath = "//a[contains(text(),'verify')]")
 	public static WebElement linkClickhere;
 
 	public void OpenMail(String email) throws IOException, InterruptedException {
@@ -42,16 +42,12 @@ public class ForgetPasswordPage extends Base {
 		oCommonFunctions.clickElement(btnGo, 10);
 		oCommonFunctions.clickElement(labelInboxTitle, 10);
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("window.scrollBy(0,250)");
-		jse.executeScript("window.scrollBy(0,250)");
+		// jse.executeScript("window.scrollBy(0,250)");
+		// jse.executeScript("window.scrollBy(0,250)");
 		driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='msg_body']")));
-		// driver.navigate().refresh();
+		oCommonFunctions.scrollToElement(linkClickhere, 5);
 		jse.executeScript("arguments[0].click();", linkClickhere);
-		// driver.findElement(By.xpath("//a[contains(text(),'Click
-		// here')]")).click();
-		Thread.sleep(8000);
-		// oCommonFunctions.clickElement(linkClickhere, 10);
-		// driver.switchTo().defaultContent();
+		// oCommonFunctions.sleepWait(5);
 
 	}
 }

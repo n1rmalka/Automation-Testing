@@ -42,6 +42,23 @@ public class SignInStepDefinition extends Base {
 
 	}
 
+	@And("^Click submit and validate the message \"([^\"]*)\" \"([^\"]*)\"$")
+	public void click_submit_and_validate_the_message(String Expectedresultuser, String ExpectedresultPassword)
+			throws Throwable {
+		signinPage.clickBtnSubmit();
+
+		String actual_msg_loginuser = driver.findElement(By.xpath("//label[@id='loginusername-error']")).getText();
+		String expect_msg_loginuser = Expectedresultuser;
+
+		// Verify error message
+		Assert.assertEquals(actual_msg_loginuser, expect_msg_loginuser);
+
+		String actual_msg_loginpassword = driver.findElement(By.xpath("//label[@id='loginpassword-error']")).getText();
+		String expect_msg_loginpassword = ExpectedresultPassword;
+		Assert.assertEquals(actual_msg_loginpassword, expect_msg_loginpassword);
+
+	}
+
 	@And("^Click on Forgot your password link$")
 	public void click_on_forgot_your_password_link() {
 		signinPage.clickForgetPasswordLink();
@@ -91,6 +108,7 @@ public class SignInStepDefinition extends Base {
 		signinPage.enterUsername(username);
 		signinPage.enterPassword(password);
 		signinPage.clickBtnSubmit();
+
 	}
 
 }

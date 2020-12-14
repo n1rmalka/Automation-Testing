@@ -40,13 +40,12 @@ public class HomePage extends Base {
 
 	@FindBys({ @FindBy(xpath = "//div[text()='Copied the invitation link!']") })
 	public static List<WebElement> toastNotificationMessage;
-	@FindBy(xpath = "//a[@id='w3s_17237']")
-
+	@FindBy(xpath = "(//a[contains(@id,'w3s_')])[1]")
 	// a[contains(text(),'Add to cart')][1]
 	public static WebElement addToCartLink;
 	@FindBy(xpath = "//button[@name='add-to-cart']")
 	public static WebElement btnaddToCart;
-	@FindBy(xpath = "//button[@id='nothanks']")
+	@FindBy(xpath = "//div[contains(text(),'No, thanks')]")
 	public static WebElement sgboxclose;
 	@FindBy(xpath = "//input[@id='term_pop']")
 	public static WebElement termsCheckbox;
@@ -58,7 +57,9 @@ public class HomePage extends Base {
 	public static WebElement supplements_5HTPLink;
 	@FindBys({ @FindBy(xpath = "//h2[text()='Added to cart successfully!']") })
 	public List<WebElement> addedToCartConfirmationMessageText;
-	@FindBy(xpath = "(//*[@class='product-desc woocommerce'])[1]")
+	@FindBy(xpath = "//h2[contains(text(),'Best Selling')]")
+	public static WebElement bestsellingLabel;
+	@FindBy(xpath = "//body/div[@id='main-content']/article[@id='post-5']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")
 	public static WebElement productImage;
 	@FindBy(xpath = "//span[@class='et_shop_image']//img[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail']")
 	public static WebElement productimage2;
@@ -66,6 +67,8 @@ public class HomePage extends Base {
 	public static WebElement QuickViewLink;
 	@FindBy(xpath = "(//*[contains(text(),'Quick View')])[2]")
 	public static WebElement QuickViewLink2;
+	@FindBy(xpath = "(//a[@class='first_add_btn'][contains(@href,'/cart/?add-to-cart')])[1]")
+	public static WebElement BtnSearchAddtocart;
 	@FindBy(xpath = "//span[contains(@class,'popupbutton num_thr')]")
 	public static WebElement PlusIcon;
 	@FindBy(xpath = "//*[@id='search_my']")
@@ -96,34 +99,58 @@ public class HomePage extends Base {
 	public static WebElement drpshipState;
 	@FindBy(xpath = "//*[@id='calc_shipping_country']")
 	public static WebElement drpshipCountry;
-
 	@FindBy(xpath = "//*[@id='calc_shipping_country']")
 	public static WebElement labelSubCat;
 
-	// functional links and icons
-	@FindBy(xpath = "//button[@name='add-to-cart']")
+	// HomePage locators functional links and icons
+
+	@FindBy(xpath = "//div[@class='deal-section']//a[contains(text(),'See All Deals')]")
 	public static WebElement labelseeAlldeals;
+	@FindBy(xpath = "//div[contains(@class,'owl-next')])[2]")
+	public static WebElement NextArrow;
+	@FindBy(xpath = "(//div[contains(@class,'owl-prev')])[2]")
+	public static WebElement PrevArrow;
+	@FindBy(xpath = "(//a[@class='woof_open_hidden_li_btn'][contains(text(),'Show more')])[1]")
+	public static WebElement LabelShowMore;
+	@FindBy(xpath = "(//a[@class='woof_open_hidden_li_btn'][contains(text(),'Show less')])[1]")
+	public static WebElement LabelShowLess;
+	@FindBy(xpath = "//li[1]//label[1]//span[1]//label[1]")
+	public static WebElement rdbtnFiveStar;
+
+	/* TrackOrder */
+	@FindBy(xpath = "(//a[contains(text(),'Track Order')])[1]")
+	public static WebElement trackorder;
+	@FindBy(xpath = "//input[@id='order_id']")
+	public static WebElement Order_ID;
+	@FindBy(xpath = "//input[@id='order_email']")
+	public static WebElement Order_Email;
+	@FindBy(xpath = "//button[contains(text(),'Track')]")
+	public static WebElement btnTrack;
+
+	/* Actions */
 	public Actions act;
 
 	public void clearbrowserhistory() {
 		driver.get("chrome://settings/clearBrowserData?search=cache");
-		WebElement cleardata = driver.findElement(By.xpath("//*[name()='settings-ui']"));
-		cleardata.sendKeys(Keys.ENTER);
+		// WebElement cleardata =
+		// driver.findElement(By.xpath("//*[name()='settings-ui']"));
+		// cleardata.sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//button[@id='clear-now']")).click();
 	}
 
 	public void clickAddToCartLink() throws InterruptedException {
 
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,250)");
-		js.executeScript("window.scrollBy(0,250)");
-		// act = new Actions(driver);
+		// JavascriptExecutor js = (JavascriptExecutor) driver;
+		// js.executeScript("window.scrollBy(0,250)");
+		// js.executeScript("window.scrollBy(0,250)");
+		oCommonFunctions.scrollToElement(bestsellingLabel, 5);
+		act = new Actions(driver);
 		// act.moveToElement(supplementsLink.get(0)).build().perform();
 		// Thread.sleep(2000);
 		// oCommonFunctions.clickElement(supplements_5HTPLink, 10);
 		act.moveToElement(productImage).build().perform();
-		Thread.sleep(2000);
-		oCommonFunctions.clickElement(addToCartLink, 5);
-		Thread.sleep(2000);
+		oCommonFunctions.clickElement(addToCartLink, 10);
+		// Thread.sleep(2000);
 	}
 
 	public void clickTermsCheckbox() {
@@ -172,7 +199,7 @@ public class HomePage extends Base {
 
 	public void clicksearchproductbtn() {
 		oCommonFunctions.clickElement(BtnSerach, 5);
-		oCommonFunctions.sleepWait(2);
+		oCommonFunctions.sleepWait(5);
 	}
 
 	public void clickQuickLink() throws InterruptedException {
@@ -183,6 +210,20 @@ public class HomePage extends Base {
 			oCommonFunctions.clickElement(QuickViewLink, 5);
 		} else {
 			oCommonFunctions.clickElement(QuickViewLink2, 5);
+		}
+
+		Thread.sleep(2000);
+	}
+
+	public void clickSearchAddToCart() throws InterruptedException {
+
+		act = new Actions(driver);
+		act.moveToElement(productimage2).build().perform();
+		if (productimage2.isDisplayed()) {
+			oCommonFunctions.sleepWait(5);
+			oCommonFunctions.clickElement(BtnSearchAddtocart, 10);
+		} else {
+			oCommonFunctions.clickElement(QuickViewLink2, 10);
 		}
 
 		Thread.sleep(2000);
@@ -218,11 +259,8 @@ public class HomePage extends Base {
 		oCommonFunctions.clickElement(txtbxqty, 5);
 	}
 
-	// public void clickbtnCalShippingUpdate() {
-	// oCommonFunctions.clickElement(btnqtyupdate, 5);
-	// }
 	public void clicklabelCalShippping() {
-		oCommonFunctions.clickElement(labelChangeAddress, 5);
+		oCommonFunctions.clickElement(labelChangeAddress, 10);
 	}
 
 	public void entercalcshippingcity(String city) {
@@ -248,7 +286,7 @@ public class HomePage extends Base {
 	}
 
 	public void clickbtnProceedcheckout() {
-		oCommonFunctions.sleepWait(10);
+		oCommonFunctions.sleepWait(3);
 		oCommonFunctions.clickElement(btnproceedtocheckout, 5);
 	}
 
@@ -264,21 +302,66 @@ public class HomePage extends Base {
 		}
 	}
 
+	/* Homescreenmethods */
+
+	public void ClickSeeAllDeals() {
+		oCommonFunctions.clickElement(labelseeAlldeals, 10);
+
+	}
+
+	public void ClickLeftArrow() {
+		oCommonFunctions.scrollToElement(PrevArrow, 10);
+		oCommonFunctions.clickElement(PrevArrow, 10);
+
+	}
+
+	public void ClickRightArrow() {
+		oCommonFunctions.clickElement(NextArrow, 10);
+
+	}
+
+	public void ClickShowMore() {
+		oCommonFunctions.scrollToElement(LabelShowMore, 10);
+		oCommonFunctions.clickElement(LabelShowMore, 10);
+
+	}
+
+	public void ClickShowLess() {
+		oCommonFunctions.clickElement(LabelShowLess, 10);
+
+	}
+
+	public void ClickRadioBtnFiveStar() {
+		oCommonFunctions.clickElement(rdbtnFiveStar, 10);
+
+	}
+
+	/* TrackOrder */
+	public void ClickBtnTrackOrder() {
+		oCommonFunctions.clickElement(trackorder, 10);
+
+	}
+
+	public void EnterOrderDetails(String id, String email) {
+		oCommonFunctions.sendKey(Order_ID, id, 5);
+		oCommonFunctions.sendKey(Order_Email, email, 5);
+
+	}
+
+	public void ClickBtnTrack() {
+		oCommonFunctions.clickElement(btnTrack, 5);
+
+	}
+
 	/* Verify the URL */
 	public static void verifyLink(String urlLink) {
 
 		try {
-			// Use URL Class - Create object of the URL Class and pass the
-			// urlLink as
-			// parameter
+
 			URL link = new URL(urlLink);
-			// Create a connection using URL object (i.e., link)
 			HttpURLConnection httpConn = (HttpURLConnection) link.openConnection();
-			// Set the timeout for 2 seconds
 			httpConn.setConnectTimeout(2000);
-			// connect using connect method
 			httpConn.connect();
-			// use getResponseCode() to get the response code.
 			if (httpConn.getResponseCode() == 200) {
 				System.out.println(urlLink + " - " + httpConn.getResponseMessage());
 			}
