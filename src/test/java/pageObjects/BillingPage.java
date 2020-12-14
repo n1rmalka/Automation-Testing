@@ -87,7 +87,8 @@ public class BillingPage {
 	/* PassWord */
 	@FindBy(xpath = "//input[@id='account_password']")
 	private static WebElement txtpassword;
-
+	@FindBy(xpath = "//input[@id='account_password2']")
+	private static WebElement txtconpassword;
 	@FindBy(xpath = "//input[contains(@id,'terms')]")
 	private static WebElement terms_ConditionCheckbox;
 	@FindBy(xpath = "//button[contains(text(),'Place order')]")
@@ -159,6 +160,7 @@ public class BillingPage {
 
 	public void enternewpassword(String password) {
 		oCommonFunctions.sendKey(txtpassword, password, 10);
+		oCommonFunctions.sendKey(txtconpassword, password, 10);
 	}
 	/*-----------------------Shipping Address Method---------------------*/
 

@@ -7,8 +7,8 @@ Feature: Validate Login To Application and Search Product and Add to Cart and Pl
     And Enter "<username>", "<password>" and click on submit button
 
     Examples: 
-      | ID    | Description          | title              | username                  | password        |
-      | TC_01 | Login to Application | Returning Customer | northsee24@mailinator.com | Testbesttest@20 |
+      | ID    | Description          | title              | username                    | password        |
+      | TC_01 | Login to Application | Returning Customer | atdemouser96@mailinator.com | Testbesttest@20 |
 
   Scenario Outline: Smoke test of the application from Search product to Add product
     And search product "<searchtext>" and click on search product
@@ -35,7 +35,7 @@ Feature: Validate Login To Application and Search Product and Add to Cart and Pl
     And Click on Change address and enter new local address "<Country>","<State>","<city>","<postalcode>"
     And click on Proceed to checkout button
     And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
-    And User entering new password "<Password>"
+    And User entering new password "<Password>" and "<confirmpasword>"
     And Click on Shipping diffrent address checkbox
     And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
     And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
@@ -44,5 +44,5 @@ Feature: Validate Login To Application and Search Product and Add to Cart and Pl
     And Verify the Total amount
 
     Examples: 
-      | ID    | Description                            | password        | searchtext | coupon  | qty | Country            | State    | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email    | cardnumber       | cardexpdate | cardcvc |
-      | TC_01 | Search Product and Add to cart product | Testbesttest@20 | Almond     | SAVEME5 |   1 | United States (US) | New York | George    | Kon      | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 |        9856 | gorgekon | 4242424242424242 |        0325 |     123 |
+      | ID    | Description                            | password        | searchtext | coupon  | qty | Country            | State    | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email        | cardnumber       | cardexpdate | cardcvc |
+      | TC_01 | Search Product and Add to cart product | Testbesttest@20 | Almond     | SAVEME5 |   1 | United States (US) | New York | Nirmal    | Patel    | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 |        9856 | nirmal.patel | 4242424242424242 |        0325 |     123 |

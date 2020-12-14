@@ -57,7 +57,9 @@ public class HomePage extends Base {
 	public static WebElement supplements_5HTPLink;
 	@FindBys({ @FindBy(xpath = "//h2[text()='Added to cart successfully!']") })
 	public List<WebElement> addedToCartConfirmationMessageText;
-	@FindBy(xpath = "//div[@class='et_pb_module et_pb_fullwidth_code et_pb_fullwidth_code_3 Best_deals_class']//div[@class='owl-wrapper']//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//img[1]")
+	@FindBy(xpath = "//h2[contains(text(),'Best Selling')]")
+	public static WebElement bestsellingLabel;
+	@FindBy(xpath = "//body/div[@id='main-content']/article[@id='post-5']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")
 	public static WebElement productImage;
 	@FindBy(xpath = "//span[@class='et_shop_image']//img[@class='attachment-woocommerce_thumbnail size-woocommerce_thumbnail']")
 	public static WebElement productimage2;
@@ -115,27 +117,40 @@ public class HomePage extends Base {
 	@FindBy(xpath = "//li[1]//label[1]//span[1]//label[1]")
 	public static WebElement rdbtnFiveStar;
 
+	/* TrackOrder */
+	@FindBy(xpath = "(//a[contains(text(),'Track Order')])[1]")
+	public static WebElement trackorder;
+	@FindBy(xpath = "//input[@id='order_id']")
+	public static WebElement Order_ID;
+	@FindBy(xpath = "//input[@id='order_email']")
+	public static WebElement Order_Email;
+	@FindBy(xpath = "//button[contains(text(),'Track')]")
+	public static WebElement btnTrack;
+
 	/* Actions */
 	public Actions act;
 
 	public void clearbrowserhistory() {
 		driver.get("chrome://settings/clearBrowserData?search=cache");
-		WebElement cleardata = driver.findElement(By.xpath("//*[name()='settings-ui']"));
-		cleardata.sendKeys(Keys.ENTER);
+		// WebElement cleardata =
+		// driver.findElement(By.xpath("//*[name()='settings-ui']"));
+		// cleardata.sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//button[@id='clear-now']")).click();
 	}
 
 	public void clickAddToCartLink() throws InterruptedException {
 
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,250)");
-		js.executeScript("window.scrollBy(0,250)");
+		// JavascriptExecutor js = (JavascriptExecutor) driver;
+		// js.executeScript("window.scrollBy(0,250)");
+		// js.executeScript("window.scrollBy(0,250)");
+		oCommonFunctions.scrollToElement(bestsellingLabel, 5);
 		act = new Actions(driver);
 		// act.moveToElement(supplementsLink.get(0)).build().perform();
 		// Thread.sleep(2000);
 		// oCommonFunctions.clickElement(supplements_5HTPLink, 10);
 		act.moveToElement(productImage).build().perform();
-		oCommonFunctions.clickElement(addToCartLink, 5);
-		Thread.sleep(2000);
+		oCommonFunctions.clickElement(addToCartLink, 10);
+		// Thread.sleep(2000);
 	}
 
 	public void clickTermsCheckbox() {
@@ -318,6 +333,23 @@ public class HomePage extends Base {
 
 	public void ClickRadioBtnFiveStar() {
 		oCommonFunctions.clickElement(rdbtnFiveStar, 10);
+
+	}
+
+	/* TrackOrder */
+	public void ClickBtnTrackOrder() {
+		oCommonFunctions.clickElement(trackorder, 10);
+
+	}
+
+	public void EnterOrderDetails(String id, String email) {
+		oCommonFunctions.sendKey(Order_ID, id, 5);
+		oCommonFunctions.sendKey(Order_Email, email, 5);
+
+	}
+
+	public void ClickBtnTrack() {
+		oCommonFunctions.clickElement(btnTrack, 5);
 
 	}
 

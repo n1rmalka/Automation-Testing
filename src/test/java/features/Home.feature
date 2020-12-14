@@ -1,25 +1,21 @@
 Feature: Validate the Home Page Functional and Broken links check
 
-  Scenario Outline: Smoke test of the application Homepage functional test
+  Scenario Outline: Homepage functional test
     Given User is on home page
     Then User close the discount popup
-    #And Scroll down and click on see all deals
-    #And Verify the deal page meesage
-    #And Click back button of browser
+    And Swtich to Night View
     And Scroll down and left and right arrow
     And Scroll up and click on categories "<category>"
     And Click on Show more on narrow choice
     And Click on Sub Category "<subcategory>"
     And Click on Show less on narrow choice
-    #And Click on price radio button
-    #And Click on rating checkbox
     And Click on Quick view
     And Click on plus button and click on add to cart
     And Enter coupon code "<coupon>" and click on apply coupn button
     And Click on Change address and enter new local address "<Country>","<State>","<city>","<postalcode>"
     And click on Proceed to checkout button
     And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
-    And User entering new password "<Password>"
+    And User entering new password "<Password>" and "<confirmpasword>"
     And Click on Shipping diffrent address checkbox
     And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
     And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
@@ -30,7 +26,7 @@ Feature: Validate the Home Page Functional and Broken links check
 
     Examples: 
       | ID    | Description                                  | category               | subcategory | coupon  | Country            | State    | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email   | cardnumber       | cardexpdate | cardcvc | password        |
-      | TC_01 | Home Page functional test of the application | Vitamins & Supplements | Amino Acids | SAVEME5 | United States (US) | New York | Hoss      | Tom      | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 |        9855 | hosstom | 4242424242424242 |        0325 |     123 | Testbesttest@20 |
+      | TC_01 | Home Page functional test of the application | Vitamins & Supplements | Amino Acids | SAVEME5 | United States (US) | New York | Nirmal    | Patel    | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      60438 |        9855 | at_team | 4242424242424242 |        0325 |     123 | Testbesttest@20 |
 
   Scenario Outline: Find Broken Links
     Given User is on home page

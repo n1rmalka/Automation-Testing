@@ -7,15 +7,17 @@ Feature: Validate Add product To Cart and Place Order
     And user click on term & condtions checkbox
     And clicks checkout button
     And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
-    And User entering new password "<Password>"
+    And User entering new password "<Password>" and "<confirmpasword>"
     And Click on Shipping diffrent address checkbox
     And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
-   # And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
-    #And User click on website terms and conditions
-    #And Click on Place order button
-    #And Verify the Total amount
-    #And browser is closed
+    And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
+    And User click on website terms and conditions
+    And Click on Place order button
+    And Verify the Total amount
+    And Track the order
+    And Enter track details
+    And browser is closed
 
     Examples: 
-      | ID    | Description                        | firstname | lastname | address1                 | address2 | State    | city    | postalcode | phonenumber | email    | cardnumber       | cardexpdate | cardcvc | password        |
-      | TC_01 | End to End test of the application | Evan      | More     | 3647 173rd Court Lansing | Circle   | Illinois | Lansing |      60438 | 987-456-78  | evanmore | 4242424242424242 |        0325 |     123 | Testbesttest@20 |
+      | ID    | Description                        | firstname | lastname | address1                 | address2  | State    | city    | postalcode | phonenumber | email        | cardnumber       | cardexpdate | cardcvc | password        |
+      | TC_01 | End to End test of the application | Nirmal    | Patel    | 3647 173rd Court Lansing | Main Road | Illinois | Lansing |      60438 | 987-4       | nirmal.patel | 4242424242424242 |        0325 |     123 | Testbesttest@20 |

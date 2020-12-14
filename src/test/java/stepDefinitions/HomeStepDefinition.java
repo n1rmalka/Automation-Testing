@@ -49,6 +49,9 @@ public class HomeStepDefinition extends Base {
 	String renewDurationUnit;
 	String totalamount;
 	String Email;
+	String TrackId;
+	String billingemail;
+	String trackingmessage;
 
 	@Given("^User is on home page$")
 	public void user_is_on_home_page() throws Throwable {
@@ -132,14 +135,18 @@ public class HomeStepDefinition extends Base {
 		billingPage.enterBillcity(city);
 		billingPage.enterBillpostalcode(postalcode);
 		billingPage.enterBillphonenumber(phonenumber + time);
-		billingPage.enterBillemail(email + time + "@mailinator.com");
+		billingemail = (email + time + "@mailinator.com");
+		System.out.println("Billing Email is :" + billingemail);
+		billingPage.enterBillemail(billingemail);
+
 		Thread.sleep(5000);
 
 	}
 
-	@And("^User entering new password \"([^\"]*)\"$")
-	public void user_entering_new_password(String password) throws Throwable {
+	@And("^User entering new password \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void user_entering_new_password(String password, String confirmpasword) throws Throwable {
 		billingPage.enternewpassword(password);
+		// driver.findElement(By.xpath(""));
 	}
 
 	@And("^Click on Shipping diffrent address checkbox$")
@@ -161,7 +168,9 @@ public class HomeStepDefinition extends Base {
 		billingPage.enterShippingcity(city);
 		billingPage.enterShippingpostalcode(postalcode);
 		billingPage.enterShippingphonenumber(phonenumber + time);
-		billingPage.enterShippingemail(email + time + "@mailinator.com");
+		String shippingemail = (email + time + "@mailinator.com");
+		System.out.println("Shipping Email is :" + shippingemail);
+		billingPage.enterShippingemail(shippingemail);
 		Thread.sleep(5000);
 	}
 
@@ -203,7 +212,24 @@ public class HomeStepDefinition extends Base {
 			driver.findElement(By.xpath("//*[@class='closeLollipopFrameJS text__small popup__link']")).click();
 
 		}
+		TrackId = driver.findElement(By.xpath("(//li[contains(text(),'Order number')]//following::strong)[1]"))
+				.getText();
 		Thread.sleep(3000);
+	}
+
+	@And("^Track the order$")
+	public void track_the_order() throws Throwable {
+		homePage.ClickBtnTrackOrder();
+	}
+
+	@And("^Enter track details$")
+	public void enter_track_details() throws Throwable {
+		homePage.EnterOrderDetails(TrackId, billingemail);
+		homePage.ClickBtnTrack();
+		trackingmessage = driver.findElement(By.xpath("//div[@class='track_fail_msg']")).getText();
+		System.out.println(trackingmessage);
+		Assert.assertEquals("Tracking details not found.", "Tracking details not found.");
+
 	}
 
 	/* HomePage Functional test */
@@ -224,6 +250,11 @@ public class HomeStepDefinition extends Base {
 	public void click_back_button_of_browser() {
 		driver.navigate().back();
 	}
+
+	@And("^Swtich to Night View$")
+	    public void swtich_to_night_view() throws Throwable {
+	        driver.findElement(By.xpath("(//*[contains(@class,'toggle')])[1]")).click();
+	    }
 
 	@And("^Scroll down and left and right arrow$")
 	public void scroll_down_and_left_and_right_arrow() throws Throwable {

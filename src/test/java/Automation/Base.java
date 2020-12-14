@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Base {
@@ -24,8 +25,6 @@ public class Base {
 	public static Properties prop;
 	static String currentDirectory;
 	static int implicitWait = 20;
-
-	
 
 	public static WebDriver getDriver() throws IOException {
 		prop = new Properties();
@@ -35,8 +34,11 @@ public class Base {
 
 		prop.load(fis);
 
-		System.setProperty("webdriver.chrome.driver",
-				currentDirectory + "\\src\\test\\java\\Automation\\chromedriver.exe");
+		// System.setProperty("webdriver.chrome.driver",currentDirectory +
+		// "\\src\\test\\java\\Automation\\chromedriver.exe");
+
+		System.setProperty("webdriver.edge.driver",
+				currentDirectory + "\\src\\test\\java\\Automation\\msedgedriver.exe");
 		// driver = new ChromeDriver();
 		if (prop.getProperty("headless").equalsIgnoreCase("Y")) {
 			ChromeOptions options = new ChromeOptions();
@@ -50,7 +52,8 @@ public class Base {
 			options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 			driver = new ChromeDriver(options);
 		} else {
-			driver = new ChromeDriver();
+			// driver = new ChromeDriver();
+			driver = new EdgeDriver();
 			driver.manage().window().maximize();
 		}
 
@@ -62,5 +65,4 @@ public class Base {
 
 	}
 
-	
 }

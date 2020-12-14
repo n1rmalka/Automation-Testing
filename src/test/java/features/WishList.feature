@@ -14,7 +14,7 @@ Feature: Validate Login To Application and Add to product to wishlist
     And Click on Change address and enter new local address "<Country>","<State>","<city>","<postalcode>"
     And click on Proceed to checkout button
     And Fill the billing details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
-    And User entering new password "<Password>"
+    And User entering new password "<Password>" and "<confirmpasword>"
     And Click on Shipping diffrent address checkbox
     And Fill the shipping details of the  user "<firstname>","<lastname>","<address1>","<address2>","<State>","<city>","<postalcode>","<phonenumber>","<email>"
     And User enter credit card details "<cardnumber>","<cardexpdate>","<cardcvc>"
@@ -24,5 +24,5 @@ Feature: Validate Login To Application and Add to product to wishlist
     And browser is closed
 
     Examples: 
-      | ID    | Description                                      | title              | username                  | password        | coupon  | qty | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email     | cardnumber       | cardexpdate | cardcvc |
-      | TC_01 | Login to Application and add product to wishlist | Returning Customer | northsee24@mailinator.com | Testbesttest@20 | SAVEME5 |   4 | Vinod     | Shah     | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      10001 |        9856 | vinodshah | 4242424242424242 |        0325 |     123 |
+      | ID    | Description                                      | title              | username                    | password        | coupon  | qty | firstname | lastname | address1                 | address2        | State    | city    | postalcode | phonenumber | email       | cardnumber       | cardexpdate | cardcvc |
+      | TC_01 | Login to Application and add product to wishlist | Returning Customer | atdemouser96@mailinator.com | Testbesttest@20 | SAVEME5 |   4 | Nirmal    | Patel    | 3647 173rd Court Lansing | LakeView Garden | Illinois | Lansing |      10001 |        9856 | nirmalpatel | 4242424242424242 |        0325 |     123 |

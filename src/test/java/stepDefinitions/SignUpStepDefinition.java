@@ -52,11 +52,21 @@ public class SignUpStepDefinition extends Base {
 		Assert.assertTrue(driver.getPageSource().contains("Create an Account"));
 	}
 
-	@And("^User click on Create Account button and verify the messages \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
-	public void user_click_on_create_account_button_and_verify_the_messages(String username, String email,
-			String password, String confirmpassword, String agreeterms) throws Throwable {
+	@And("^User click on Create Account button and verify the messages \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+	public void user_click_on_create_account_button_and_verify_the_messages(String firstname, String lastname,
+			String email, String password, String confirmpassword, String agreeterms) throws Throwable {
 		driver.findElement(By.xpath("//input[@id='CreateAccount']")).click();
+		
 
+		String actual_msg_fname = driver.findElement(By.xpath("//label[@id='username-error']")).getText();
+		String expect_msg_fname = firstname;
+
+		// Verify error message
+		Assert.assertEquals(actual_msg_fname, expect_msg_fname);
+
+		String actual_msg_loginpassword = driver.findElement(By.xpath("//label[@id='loginpassword-error']")).getText();
+		String expect_msg_loginpassword = ExpectedresultPassword;
+		Assert.assertEquals(actual_msg_loginpassword, expect_msg_loginpassword);
 	}
 
 	@And("^User enters Create an Account details \"([^\"]*)\", \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")

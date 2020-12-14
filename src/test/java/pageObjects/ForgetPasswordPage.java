@@ -30,9 +30,9 @@ public class ForgetPasswordPage extends Base {
 	public static WebElement txtbxInbox;
 	@FindBy(xpath = "//button[contains(text(),'G')]")
 	public static WebElement btnGo;
-	@FindBy(xpath = "(//*[contains(text(),'40Plusmart')])[1]")
+	@FindBy(xpath = "(//*[contains(text(),'Reset')])[1]")
 	public static WebElement labelInboxTitle;
-	@FindBy(xpath = "//a[contains(text(),'Click here')]")
+	@FindBy(xpath = "//a[contains(text(),'verify')]")
 	public static WebElement linkClickhere;
 
 	public void OpenMail(String email) throws IOException, InterruptedException {

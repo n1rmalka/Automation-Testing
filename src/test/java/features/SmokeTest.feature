@@ -5,7 +5,7 @@ Feature: Sign Up for first time for smoke suite run
     Then User close the discount popup
     And Click on Signin and verify the title
     And User Click on Signup button
-    And User enters Create an Account details "<username>", "<mobilenumber>","northsee24@yopmail.com","<password>","<confirmpassword>"
+    And User enters Create an Account details "<username>", "<mobilenumber>","atdemouser96@mailinator.com","<password>","<confirmpassword>"
     And User click on receive exclusive Marketing Offers by email checkbox
     And User click on agree to Terms of Use checkbox
     And User click on Create Account button and Verify the message
@@ -13,5 +13,5 @@ Feature: Sign Up for first time for smoke suite run
     And browser is closed
 
     Examples: 
-      | ID    | Description                         | username | mobilenumber | email                  | password        | confirmpassword |
-      | TC_01 | New User sign-up to the application | northsee |         9924 | northsee24@yopmail.com | Testbesttest@20 | Testbesttest@20 |
+      | ID    | Description                         | username | mobilenumber | email                       | password        | confirmpassword |
+      | TC_01 | New User sign-up to the application | northsee |         9924 | atdemouser96@mailinator.com | Testbesttest@20 | Testbesttest@20 |
